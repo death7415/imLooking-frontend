@@ -8,8 +8,18 @@
 - Global motion stack: `Animate UI` patterns powered by `motion`.
 - Global scroll stack: `Lenis` for smooth scrolling and scroll-linked interactions.
 - Architecture posture: modular by domain with shared primitives and centralized providers.
-- Project history rule: `change.log` is the permanent reverse-chronological, append-only work log for every change, including tiny edits such as punctuation, spacing, wording, formatting, and comment-only updates.
-- Timestamp rule: every `change.log` entry uses a full local timestamp in the format `YYYY-MM-DD HH:mm:ss ±HH:MM`.
+- Project history rule: `change.log` is the permanent reverse-chronological, append-only work log for every repo change.
+- Change scope rule: `change.log` covers code, docs, markdown, JSON, config, comments, formatting, punctuation, spacing, and any other repo edit with no exceptions.
+- Timestamp rule: every `change.log` entry uses a full local timestamp in the format `YYYY-MM-DD HH:mm:ss +/-HH:MM`.
+- Workflow rule: before any repo task, read `change.log` first.
+- Workflow rule: after reading `change.log`, inspect repo diffs/status for unlogged manual or external changes.
+- Workflow rule: record any unlogged changes in `change.log` before doing new requested work.
+- Workflow rule: after completing new work, prepend the new task entry to `change.log`.
+- Phase 0 foundation now includes centralized providers, a router layer, an app shell widget, shared token/global styles, and dedicated placeholder pages.
+- Current route map: `/home`, `/onboarding`, and `/chat` live in the shared app shell, while `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent` live in the auth boundary; `/` redirects to `/login`.
+- Phase 1 milestone 1 decision: auth routing is separated from the main product shell before form implementation begins.
+- Current login entry state: `/login` is the default landing route and now uses a dedicated animated auth-stage experience.
+- Brand motion decision: the `imlooking` lockup docks into the login modal edge and uses animated eyes as the `oo`, with delayed eye landing and continuous look/blink motion.
 
 ## Standards We Are Anchoring To
 
@@ -43,6 +53,7 @@
 - The frontend should never hold secrets that belong on the server.
 - Moderation, analytics, and messaging will be treated as attached services.
 - Every implementation step and every file edit should update both the relevant docs and `change.log`.
+- Structural work should land in the app/page/widget/shared layout unless there is a documented reason to break that boundary.
 
 ## Source Anchors
 

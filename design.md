@@ -49,6 +49,17 @@ We can use glassmorphism, but only as an accent language. Enterprise-grade datin
 - Respect `prefers-reduced-motion`.
 - Motion duration should generally stay short and intentional; no autoplay spectacle on core conversion flows.
 
+## Current Foundation Implementation
+
+- The first shell uses a glass-accent chrome around a high-contrast content area.
+- Navigation uses pill-based states with clear active and hover treatment.
+- Shared tokens now define the base surface, text, accent, radius, and shadow system.
+- Placeholder pages use one reusable panel pattern so we can evolve screens without visual drift.
+- The login landing now uses a dedicated animated auth composition instead of the generic placeholder panel.
+- The `imlooking` brand mark now docks into the login modal edge instead of reading like a second glass card.
+- The `imlooking` brand mark now stays on one line, with delayed eye landing, side-to-side pupil motion, and more human eyelid behavior.
+- The auth entry experience no longer exposes a visual path back to the main app before login.
+
 ## Component Expectations
 
 - Buttons: strong hover, focus, active, disabled, loading states.

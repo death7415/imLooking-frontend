@@ -1,3 +1,72 @@
+2026-08-01 02:48:29 +05:30
+- Refined the login landing again so the brand treatment now feels attached to the login modal instead of reading like a second floating card.
+- Moved the `imlooking` dock inside the login modal structure and removed the extra glass-panel treatment around the brand copy area.
+- Tightened the `imlooking` lockup layout so it stays on one line more reliably while the eyes remain inline as the `oo`.
+- Reworked the eye styling again with a more human shape, stronger lids, softer iris tones, and a cleaner docked presentation.
+- Updated `design.md` and `memory.md` to reflect the integrated auth-brand treatment.
+- Verified the revised login landing with a successful `pnpm build`.
+
+2026-08-01 02:44:51 +05:30
+- Refined the animated login landing after visual review feedback.
+- Moved the `imlooking` brand treatment so it lands on and docks to the login modal instead of sitting in a separate panel.
+- Kept the `imlooking` lockup on a single line to prevent `king` from wrapping below the eyes.
+- Reworked the eyes to feel more human with stronger eye shape, visible upper and lower lids, iris detail, and more natural look/blink motion.
+- Updated `design.md` and `memory.md` to reflect the corrected auth-brand treatment.
+- Verified the revised login animation with a successful `pnpm build`.
+
+2026-08-01 02:36:38 +05:30
+- Started Phase 1 Milestone 2 and the visual part of Milestone 4 by replacing the login placeholder with an animated auth landing.
+- Added `src/features/auth/ui/LoginExperience.jsx` and `LoginExperience.css` for the dedicated login-stage UI.
+- Animated the `imlooking` brand lockup so the word drops from above, the eyes land last on the brand mark, and the pupils blink and look left/right continuously.
+- Removed the leftover auth-boundary planning header so the login experience owns the full first impression.
+- Updated `arch.md`, `phases.md`, `design.md`, and `memory.md` to reflect the new auth-stage implementation.
+- Verified the animated login landing with a successful `pnpm build`.
+
+2026-08-01 02:27:53 +05:30
+- Removed the `Back to Home` link from the auth boundary so users cannot visually bypass the login-first entry flow.
+- Updated `src/widgets/auth-route-boundary/AuthRouteBoundary.jsx` to keep the auth routes focused on authentication only.
+- Verified the auth-boundary change with a successful `pnpm build`.
+
+2026-08-01 02:25:21 +05:30
+- Changed the default landing behavior so the app now opens on the login page.
+- Updated the router so `/` redirects to `/login` instead of `/home`.
+- Updated `arch.md` and `memory.md` to reflect the new root-route behavior.
+- Verified the landing-route change with a successful `pnpm build`.
+
+2026-08-01 02:21:04 +05:30
+- Completed Phase 1 Milestone 1: auth route planning.
+- Added route constants and codified the auth route map in the router.
+- Added dedicated auth-boundary routing for `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent`.
+- Kept `/home`, `/onboarding`, and `/chat` inside the shared app shell.
+- Added TODO-marked placeholder pages for the new auth and safety-gate routes.
+- Updated `arch.md`, `phases.md`, and `memory.md` to reflect the route split and milestone progress.
+- Verified the milestone with a successful `pnpm build`.
+
+2026-08-01 02:17:34 +05:30
+- Detected and recorded a previously unlogged manual repo change in `rules.md`.
+- Added rule: always add `TODO` markers for steps that still need attention, API calls, or backend work.
+- This entry was added after re-checking repo diffs against `change.log`.
+
+2026-08-01 02:14:09 +05:30
+- Updated `phases.md` to replace the broad Phase 1 bullets with the agreed small authentication milestones and recommended build order.
+
+2026-08-01 02:07:43 +05:30
+- Clarified the mandatory `change.log` workflow for all future repo work.
+- New operating rule: before touching the repo, first read `change.log`.
+- New operating rule: after reading `change.log`, inspect current repo diffs/status and detect any unlogged manual changes.
+- New operating rule: if user-made or previously unlogged changes are found, add them to `change.log` before starting new requested work.
+- New operating rule: after completing the requested work, append the new change entry at the top of `change.log`.
+- Updated `rules.md` and `memory.md` so this process is permanent and not reminder-based.
+
+2026-08-01 01:47:47 +05:30
+- Completed the first foundation sprint for the frontend project.
+- Added `react-router-dom` and established route-based navigation for `/home`, `/login`, `/onboarding`, and `/chat`.
+- Replaced the single-screen starter with a modular structure using `app`, `pages`, `widgets`, and `shared` layers.
+- Added root providers, a reusable app shell, shared foundation panel UI, and token/global style files.
+- Verified the new foundation with a successful `pnpm build`.
+- Updated `arch.md`, `phases.md`, `design.md`, and `memory.md` to reflect the implemented structure and current Phase 0 progress.
+- Normalized timestamp format wording in docs to use ASCII `+/-HH:MM`.
+
 2026-08-01 01:41:53 +05:30
 - Corrected the project logging rule: `change.log` must record every change, including punctuation-only, spacing-only, and tiny text edits.
 - Updated `rules.md` and `memory.md` to remove the weaker "meaningful change" wording.

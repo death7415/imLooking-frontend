@@ -2,8 +2,10 @@
   font-family: "Segoe UI", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #f4f8ff;
-  background: #07111f;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at top, rgba(0, 176, 155, 0.18), transparent 30%),
+    linear-gradient(160deg, #07111f, #0f2039 54%, #17365b);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,6 +25,7 @@ body,
 
 body {
   min-width: 320px;
+  color: var(--text-primary);
 }
 
 button,
@@ -30,4 +33,14 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }

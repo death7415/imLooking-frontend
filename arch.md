@@ -53,6 +53,63 @@ src/
     types/
 ```
 
+## Current Implemented Foundation
+
+The project now implements the first slice of that structure:
+
+```text
+src/
+  app/
+    providers/AppProviders.jsx
+    router/AppRouter.jsx
+    router/route-paths.js
+    styles/
+      global.css
+      tokens.css
+  features/
+    auth/
+      ui/
+        LoginExperience.jsx
+        LoginExperience.css
+  pages/
+    age-gate/AgeGatePage.jsx
+    chat/ChatPage.jsx
+    consent/ConsentPage.jsx
+    forgot-password/ForgotPasswordPage.jsx
+    home/HomePage.jsx
+    login/LoginPage.jsx
+    onboarding/OnboardingPage.jsx
+    reset-password/ResetPasswordPage.jsx
+    signup/SignupPage.jsx
+  shared/
+    ui/
+      foundation-panel/
+        FoundationPanel.jsx
+        FoundationPanel.css
+  widgets/
+    auth-route-boundary/
+      AuthRouteBoundary.jsx
+      AuthRouteBoundary.css
+    app-shell/
+      AppShell.jsx
+      AppShell.css
+  App.jsx
+  main.jsx
+```
+
+## Current Route Map
+
+- `/home`: foundation home placeholder
+- `/onboarding`: profile and consent placeholder
+- `/chat`: messaging placeholder
+- `/login`: auth boundary route
+- `/signup`: auth boundary route
+- `/forgot-password`: auth boundary route
+- `/reset-password`: auth boundary route
+- `/age-gate`: auth boundary route
+- `/consent`: auth boundary route
+- `/`: redirects to `/login`
+
 ## Layer Responsibilities
 
 - `app`: global providers, routing, app bootstrap, theme, auth/session shell.
@@ -100,6 +157,15 @@ src/
 
 - Design-system primitives own focus, semantics, keyboard support, and reduced-motion handling.
 - Accessibility must be solved at the component layer so features inherit it by default.
+
+## Foundation Status
+
+- Global providers are centralized in `app/providers`.
+- Routing is centralized in `app/router`.
+- Shared visual tokens and base styles are centralized in `app/styles`.
+- Feature pages currently exist as route placeholders so future work can land without structural rewrites.
+- Auth route planning is now codified in the router with a dedicated auth boundary separated from the shared app shell.
+- The login route now uses a feature-level auth UI component instead of a generic placeholder panel.
 
 ## Inference
 

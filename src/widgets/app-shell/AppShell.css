@@ -1,0 +1,88 @@
+.app-shell {
+  min-height: 100vh;
+  padding: 1.25rem;
+}
+
+.app-shell__chrome {
+  width: min(100%, var(--content-max));
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 2rem;
+  background: rgba(5, 12, 22, 0.36);
+  backdrop-filter: blur(24px);
+}
+
+.app-shell__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.app-shell__brand {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.app-shell__brand-mark {
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+}
+
+.app-shell__brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.app-shell__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.app-shell__nav-link {
+  padding: 0.8rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.app-shell__nav-link:hover,
+.app-shell__nav-link:focus-visible {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.app-shell__nav-link--active {
+  border-color: rgba(123, 224, 208, 0.35);
+  background: rgba(123, 224, 208, 0.12);
+  color: var(--text-primary);
+}
+
+.app-shell__content {
+  display: grid;
+  padding: clamp(1rem, 4vw, 2.5rem);
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 0.75rem;
+  }
+
+  .app-shell__header {
+    align-items: flex-start;
+  }
+
+  .app-shell__nav {
+    width: 100%;
+  }
+}

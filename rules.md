@@ -5,6 +5,7 @@
 - No guessing.
 - Always ask when real ambiguity changes architecture, security, data, or user trust.
 - Do not jump to conclusions when evidence is incomplete.
+- always add TODO for steps which needs attention, api-calls or any backend work
 
 ## Product Rules
 
@@ -53,9 +54,13 @@
 - Shared UI primitives must solve semantics, focus, and error states once for reuse everywhere.
 - New dependencies require a written justification: why it is needed, bundle impact, maintenance risk, and security posture.
 - Any feature touching auth, chat, payments, moderation, or personal data requires explicit test coverage.
-- Every change must be recorded in `change.log`, including tiny edits such as punctuation, spacing, wording, formatting, or comment-only updates.
+- Every change must be recorded in `change.log`, including tiny edits such as punctuation, spacing, wording, formatting, comment-only updates, markdown edits, JSON edits, config edits, and code edits.
 - `change.log` is append-only history in reverse chronological order: newest entry on top, older entries preserved below.
-- Every `change.log` entry must use a full local timestamp in the format `YYYY-MM-DD HH:mm:ss ±HH:MM`.
+- Every `change.log` entry must use a full local timestamp in the format `YYYY-MM-DD HH:mm:ss +/-HH:MM`.
+- The first step before any repo work is to read `change.log`.
+- After reading `change.log`, inspect the current repo state and diffs to identify any changes not yet recorded there.
+- If unlogged changes are found, add them to `change.log` before starting the new requested work.
+- After the requested work is complete, prepend the new change entry to `change.log`.
 - No `change.log` entry is deleted, rewritten, or compacted unless the user explicitly asks for that.
 
 ## Delivery Rules
@@ -66,7 +71,7 @@
   - accessibility spot checks completed
   - performance budget reviewed
   - production config reviewed
-- No substantial task is complete until its summary has been added to `change.log`.
+- No task is complete until all repo changes from that task are recorded in `change.log`.
 
 ## References
 

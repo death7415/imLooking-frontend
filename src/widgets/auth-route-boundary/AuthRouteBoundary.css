@@ -1,0 +1,17 @@
+.auth-route-boundary {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.auth-route-boundary__frame {
+  width: min(100%, 70rem);
+  display: grid;
+}
+
+@media (max-width: 720px) {
+  .auth-route-boundary {
+    padding: 0.75rem;
+  }
+}
