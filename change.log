@@ -1,0 +1,13 @@
+2026-08-01 01:41:53 +05:30
+- Corrected the project logging rule: `change.log` must record every change, including punctuation-only, spacing-only, and tiny text edits.
+- Updated `rules.md` and `memory.md` to remove the weaker "meaningful change" wording.
+
+2026-08-01 01:40:23 +05:30
+- Updated `change.log` policy to require full local timestamps on every entry.
+- Format rule: `YYYY-MM-DD HH:mm:ss ±HH:MM`.
+
+2026-08-01 00:00:00 +05:30
+- Established `change.log` as the permanent append-only project history file.
+- Rule: every meaningful code, config, architecture, or documentation change must add a new summary entry here.
+- Ordering rule: newest entries stay at the top.
+- Retention rule: existing entries are not deleted or rewritten unless explicitly requested by the user.
