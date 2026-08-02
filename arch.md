@@ -69,6 +69,10 @@ src/
   features/
     auth/
       ui/
+        AuthBrandMark.jsx
+        AuthBrandMark.css
+        LoadingExperience.jsx
+        LoadingExperience.css
         LoginExperience.jsx
         LoginExperience.css
   pages/
@@ -77,6 +81,7 @@ src/
     consent/ConsentPage.jsx
     forgot-password/ForgotPasswordPage.jsx
     home/HomePage.jsx
+    loading/LoadingPage.jsx
     login/LoginPage.jsx
     onboarding/OnboardingPage.jsx
     reset-password/ResetPasswordPage.jsx
@@ -102,14 +107,13 @@ src/
 - `/home`: foundation home placeholder
 - `/onboarding`: profile and consent placeholder
 - `/chat`: messaging placeholder
+- `/`: animated loading splash route
 - `/login`: auth boundary route
 - `/signup`: auth boundary route
 - `/forgot-password`: auth boundary route
 - `/reset-password`: auth boundary route
 - `/age-gate`: auth boundary route
 - `/consent`: auth boundary route
-- `/`: redirects to `/login`
-
 ## Layer Responsibilities
 
 - `app`: global providers, routing, app bootstrap, theme, auth/session shell.
@@ -165,6 +169,7 @@ src/
 - Shared visual tokens and base styles are centralized in `app/styles`.
 - Feature pages currently exist as route placeholders so future work can land without structural rewrites.
 - Auth route planning is now codified in the router with a dedicated auth boundary separated from the shared app shell.
+- The app now opens on a feature-level loading splash before handing off to the login route.
 - The login route now uses a feature-level auth UI component instead of a generic placeholder panel.
 
 ## Inference

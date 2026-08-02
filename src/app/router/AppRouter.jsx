@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ROUTE_PATHS } from './route-paths.js'
 import { AuthRouteBoundary } from '../../widgets/auth-route-boundary/AuthRouteBoundary.jsx'
 import { AppShell } from '../../widgets/app-shell/AppShell.jsx'
@@ -7,6 +7,7 @@ import { ChatPage } from '../../pages/chat/ChatPage.jsx'
 import { ConsentPage } from '../../pages/consent/ConsentPage.jsx'
 import { ForgotPasswordPage } from '../../pages/forgot-password/ForgotPasswordPage.jsx'
 import { HomePage } from '../../pages/home/HomePage.jsx'
+import { LoadingPage } from '../../pages/loading/LoadingPage.jsx'
 import { LoginPage } from '../../pages/login/LoginPage.jsx'
 import { OnboardingPage } from '../../pages/onboarding/OnboardingPage.jsx'
 import { ResetPasswordPage } from '../../pages/reset-password/ResetPasswordPage.jsx'
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <AuthRouteBoundary />,
     children: [
-      { index: true, element: <Navigate to={ROUTE_PATHS.LOGIN} replace /> },
+      { index: true, element: <LoadingPage /> },
       { path: ROUTE_PATHS.LOGIN, element: <LoginPage /> },
       { path: ROUTE_PATHS.SIGNUP, element: <SignupPage /> },
       {

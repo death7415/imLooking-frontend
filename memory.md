@@ -7,6 +7,7 @@
 - Frontend stack: React + Vite.
 - Global motion stack: `Animate UI` patterns powered by `motion`.
 - Global scroll stack: `Lenis` for smooth scrolling and scroll-linked interactions.
+- Current visual direction: darker romantic liquid-glass with blob-shaped surfaces, watery refraction, brighter edge sheen, and milky lower-edge clouding, with blush/sea accents carried mainly by the surfaces rather than a fully pale background.
 - Architecture posture: modular by domain with shared primitives and centralized providers.
 - Project history rule: `change.log` is the permanent reverse-chronological, append-only work log for every repo change.
 - Change scope rule: `change.log` covers code, docs, markdown, JSON, config, comments, formatting, punctuation, spacing, and any other repo edit with no exceptions.
@@ -16,10 +17,10 @@
 - Workflow rule: record any unlogged changes in `change.log` before doing new requested work.
 - Workflow rule: after completing new work, prepend the new task entry to `change.log`.
 - Phase 0 foundation now includes centralized providers, a router layer, an app shell widget, shared token/global styles, and dedicated placeholder pages.
-- Current route map: `/home`, `/onboarding`, and `/chat` live in the shared app shell, while `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent` live in the auth boundary; `/` redirects to `/login`.
+- Current route map: `/home`, `/onboarding`, and `/chat` live in the shared app shell, while `/`, `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent` live in the auth boundary; `/` is the animated loading entry that transitions into `/login`.
 - Phase 1 milestone 1 decision: auth routing is separated from the main product shell before form implementation begins.
-- Current login entry state: `/login` is the default landing route and now uses a dedicated animated auth-stage experience.
-- Brand motion decision: the `imlooking` lockup docks into the login modal edge and uses animated eyes as the `oo`, with delayed eye landing and continuous look/blink motion.
+- Current login entry state: `/` is the default first-load splash route and `/login` remains the dedicated sign-in route with its own auth-stage experience.
+- Brand motion decision: the `imLooking` lockup drops in as separate brand parts on the splash, then reappears docked above the login modal and uses animated eyes as the `oo` with delayed eye landing, continuous look/blink motion, finer upper lash detail, and subtle eyelid/eyeball depth.
 
 ## Standards We Are Anchoring To
 

@@ -78,8 +78,8 @@
 - Added planned auth routes for `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent`.
 - Split routing intent between the shared app shell and a dedicated auth boundary for future auth layout work.
 - Added TODO-marked placeholder pages so the next milestones can land without route churn.
-- Milestone 2 is underway: the login route now uses a dedicated auth-stage presentation instead of a generic foundation placeholder.
-- Milestone 4 has started visually: the login page now has an animated landing experience, temporary form UI, and auth-first entry treatment.
+- Milestone 2 is underway: the auth boundary now includes a dedicated animated splash route before the login screen and the login route uses a dedicated auth-stage presentation instead of a generic foundation placeholder.
+- Milestone 4 has started visually: the login flow now includes an animated `imLooking` loading screen plus the temporary login form UI and auth-first entry treatment.
 
 ### Exit Criteria
 

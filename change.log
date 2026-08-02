@@ -1,3 +1,76 @@
+2026-08-02 23:32:07 +05:30
+- Reworked the auth splash and login surfaces again after the reference-image review so they now follow a denser milky liquid-glass slab pattern instead of a lighter generic glass card.
+- Kept the existing romantic color family and dark backdrop, but changed the auth panels to use a darker center core, brighter rim lighting, softer internal refraction, and cloudy white buildup near the lower edge.
+- Tightened the form layout to a more centered embedded-pill composition so the inputs and CTA read more like controls inside the same glass object.
+- Updated `design.md` and `memory.md` to capture the darker-core plus milky-lower-cloud liquid-glass direction.
+- Verified the auth liquid-glass redesign with a successful `pnpm build`.
+
+2026-08-02 23:26:53 +05:30
+- Corrected the previous liquid-glass pass after review because it changed the overall backdrop too much and still did not make the surfaces feel different enough.
+- Restored the darker romantic/adventure background direction and moved the liquid-glass emphasis back into shared shell, panel, splash, login, input, button, and nav surfaces.
+- Strengthened the reusable blob geometry and reflective/refraction styling so the fluid look is visible in actual components instead of reading like only a palette change.
+- Updated `design.md` and `memory.md` to reflect the corrected direction: dark atmospheric backdrop with liquid behavior expressed primarily by the UI surfaces.
+- Verified the corrected liquid-glass direction with a successful `pnpm build`.
+
+2026-08-02 23:19:47 +05:30
+- Shifted the shared theme from darker romantic glass toward a softer pearl liquid-glass direction with pale frosted gradients and water-like translucency.
+- Added global blob-shape tokens for shell, panel, card, hero, pill, input, and ambient-orb surfaces so the fluid form language is reusable across the project.
+- Reworked shared shell, foundation panel, auth boundary, loading splash, login card, inputs, button, and brand styling to use lighter watery highlights, softer reflections, and less rigid geometry.
+- Updated `design.md` and `memory.md` to document the new pearl/blob liquid-glass direction as the global design baseline.
+- Verified the global liquid-glass theme shift with a successful `pnpm build`.
+
+2026-08-02 23:06:57 +05:30
+- Pushed the new theme further toward a stronger liquid-glass treatment after visual review.
+- Increased refraction-style highlights, edge sheen, inner glass glow, and translucent layering across shared shell, panel, splash, and login surfaces.
+- Updated shared liquid-glass tokens so the effect reads less like standard frosted glass and more like a fluid, reflective surface.
+- Updated `design.md` and `memory.md` to reflect the stronger caustic/highlight-driven liquid-glass direction.
+- Verified the stronger liquid-glass refinement with a successful `pnpm build`.
+
+2026-08-02 23:02:44 +05:30
+- Shifted the frontend theme toward a more romantic and adventure-leaning palette while keeping the product background and surfaces gradient-led rather than solid.
+- Updated shared design tokens and global background styling to use warmer dusk tones, sunset accents, cool escape highlights, and stronger layered gradients.
+- Reworked shell, panel, splash, auth-wrapper, and login surfaces to feel more like liquid glass with brighter highlights, richer translucency, and stronger blur/saturation treatment.
+- Updated `design.md` and `memory.md` to reflect the new romantic liquid-glass visual direction replacing the older glassmorphism wording.
+- Verified the theme shift with a successful `pnpm build`.
+
+2026-08-02 22:01:13 +05:30
+- Reverted the heavier last eye pass after review and replaced it with a simpler eyelash treatment.
+- Removed the glossy, overworked 3D additions and switched to thinner, separate upper lashes so the eyes read more like human eyelashes.
+- Kept the eye form dimensional but toned the effect back to subtle depth instead of strong rounded gloss.
+- Updated `design.md` and `memory.md` to reflect the finer upper-lash treatment and softer eye depth wording.
+- Verified the eyelash correction with a successful `pnpm build`.
+
+2026-08-02 21:32:27 +05:30
+- Refined the shared `imLooking` eye styling again so the eyes now include visible lash detail instead of reading like flat colored lids.
+- Added stronger 3D depth with rounded sclera shading, richer iris layering, gloss highlights, and deeper lid shadow treatment.
+- Reworked the top-lid edge so it reads more like lashes or fine hair rather than a simple color band.
+- Updated `design.md` and `memory.md` to reflect the lash detail and stronger 3D eye treatment in the animated brand mark.
+- Verified the lash-and-depth refinement with a successful `pnpm build`.
+
+2026-08-02 21:28:42 +05:30
+- Refined the shared `imLooking` eye styling so the eyes now read with clearer, more realistic eyelids.
+- Increased the open-state lid presence so the upper and lower lids remain visible even when the eyes are not blinking.
+- Added more human eyelid detail with crease, lash-line, waterline, and softer eye-corner treatment in `AuthBrandMark.css`.
+- Updated `design.md` and `memory.md` to reflect the stronger eyelid treatment in the animated brand mark.
+- Verified the eyelid refinement with a successful `pnpm build`.
+
+2026-08-02 21:22:21 +05:30
+- Added a true first-load auth splash so the app now opens on an animated loading page before moving into the login form.
+- Added reusable `imLooking` brand animation primitives in `AuthBrandMark.jsx` and `AuthBrandMark.css` so the same animated mark can be used across the splash and login experiences.
+- Added `LoadingExperience.jsx`, `LoadingExperience.css`, and `pages/loading/LoadingPage.jsx` to render the branded loading screen and auto-transition to `/login`.
+- Updated the router so `/` is now the animated loading entry route instead of an immediate redirect to `/login`.
+- Simplified `LoginExperience.jsx` to consume the shared brand component while keeping the login form as the second step in the auth flow.
+- Updated `design.md`, `memory.md`, `arch.md`, and `phases.md` to reflect the new splash-first auth entry behavior.
+- Verified the new splash-first loading flow with a successful `pnpm build`.
+
+2026-08-02 21:03:39 +05:30
+- Corrected the login-brand positioning after visual review using the shared screenshot feedback.
+- Moved the `imlooking` lockup back above the login card so it drops from above onto the modal edge instead of living inside the modal body.
+- Changed the brand animation so `iml`, the eyes, and `king` each fall in as separate parts rather than one grouped block.
+- Removed the stray dock connector box that was appearing under the eyes and reading like a random extra surface.
+- Updated `design.md` and `memory.md` to reflect the above-modal brand landing behavior and cleaned-up dock treatment.
+- Verified the corrected login landing with a successful `pnpm build`.
+
 2026-08-01 02:48:29 +05:30
 - Refined the login landing again so the brand treatment now feels attached to the login modal instead of reading like a second floating card.
 - Moved the `imlooking` dock inside the login modal structure and removed the extra glass-panel treatment around the brand copy area.

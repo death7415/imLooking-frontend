@@ -1,0 +1,263 @@
+.auth-brand-mark {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-brand-mark__word {
+  display: inline-flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  width: max-content;
+  max-width: 100%;
+  gap: 0.04em;
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: var(--text-primary);
+  text-shadow:
+    0 12px 26px rgba(171, 187, 209, 0.24),
+    0 1px 0 rgba(255, 255, 255, 0.68);
+}
+
+.auth-brand-mark--dock .auth-brand-mark__word {
+  font-size: clamp(2.4rem, 7vw, 4.45rem);
+}
+
+.auth-brand-mark--hero .auth-brand-mark__word {
+  font-size: clamp(3.2rem, 10vw, 6.8rem);
+}
+
+.auth-brand-mark__word-part {
+  display: inline-flex;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+
+.auth-brand-mark__eyes {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  gap: 0.1em;
+  margin: 0 0.01em 0.08em;
+}
+
+.auth-brand-mark__eye {
+  position: relative;
+  width: 0.98em;
+  height: 0.56em;
+  display: inline-grid;
+  place-items: center;
+  filter: drop-shadow(0 0.1em 0.14em rgba(171, 187, 209, 0.24));
+}
+
+.auth-brand-mark__eye-shape {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 2px solid rgba(8, 12, 20, 0.68);
+  border-radius: 58% 58% 52% 52% / 94% 94% 34% 34%;
+  background:
+    radial-gradient(circle at 48% 42%, #ffffff, #edf4fb 68%, #d7e1ef 100%);
+  box-shadow:
+    inset 0 -8px 12px rgba(67, 84, 108, 0.12),
+    inset 0 4px 8px rgba(255, 255, 255, 0.42);
+}
+
+.auth-brand-mark__eye-shape::before,
+.auth-brand-mark__eye-shape::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: 0.12em;
+  height: 0.12em;
+  border-radius: 50% 50% 58% 58%;
+  background: rgba(72, 88, 110, 0.4);
+  transform: translateY(-50%);
+}
+
+.auth-brand-mark__eye-shape::before {
+  left: 0.08em;
+}
+
+.auth-brand-mark__eye-shape::after {
+  right: 0.08em;
+}
+
+.auth-brand-mark__iris {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 51%;
+  width: 41%;
+  height: 68%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 37% 34%, rgba(255, 255, 255, 0.58), transparent 19%),
+    radial-gradient(circle at 50% 48%, #8caead, #5f7c78 36%, #324746 60%, #11181d 100%);
+  transform: translate(-50%, -50%);
+  box-shadow:
+    inset 0 0 0 0.05em rgba(255, 255, 255, 0.14),
+    0 0 8px rgba(123, 224, 208, 0.1);
+}
+
+.auth-brand-mark__pupil {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36%;
+  height: 36%;
+  border-radius: 999px;
+  background: #020407;
+  transform: translate(-50%, -50%);
+}
+
+.auth-brand-mark__shine {
+  position: absolute;
+  left: 30%;
+  top: 24%;
+  width: 16%;
+  height: 16%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0.1em rgba(255, 255, 255, 0.65);
+}
+
+.auth-brand-mark__lashes {
+  position: absolute;
+  z-index: 7;
+  left: 12%;
+  right: 12%;
+  top: -0.01em;
+  height: 0.19em;
+  pointer-events: none;
+}
+
+.auth-brand-mark__lash {
+  position: absolute;
+  bottom: 0;
+  width: 0.03em;
+  height: 0.15em;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(16, 19, 24, 0.98), rgba(22, 26, 34, 0.38));
+  transform-origin: center bottom;
+  box-shadow: 0 0.01em 0.03em rgba(10, 12, 16, 0.18);
+}
+
+.auth-brand-mark__lash--1 {
+  left: 8%;
+  height: 0.12em;
+  transform: rotate(-34deg);
+}
+
+.auth-brand-mark__lash--2 {
+  left: 26%;
+  height: 0.15em;
+  transform: rotate(-20deg);
+}
+
+.auth-brand-mark__lash--3 {
+  left: 47%;
+  height: 0.17em;
+  transform: rotate(-5deg);
+}
+
+.auth-brand-mark__lash--4 {
+  left: 67%;
+  height: 0.16em;
+  transform: rotate(16deg);
+}
+
+.auth-brand-mark__lash--5 {
+  left: 85%;
+  height: 0.13em;
+  transform: rotate(30deg);
+}
+
+.auth-brand-mark__lid {
+  position: absolute;
+  z-index: 5;
+  left: -3%;
+  width: 106%;
+  overflow: hidden;
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+  transform-origin: center top;
+}
+
+.auth-brand-mark__lid--top {
+  top: -16%;
+  height: 67%;
+  border-radius: 999px 999px 42% 42%;
+  border-bottom: 2px solid rgba(56, 46, 53, 0.34);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(214, 221, 235, 0.96),
+      rgba(172, 183, 204, 0.9) 52%,
+      rgba(88, 104, 132, 0.88) 100%
+    );
+}
+
+.auth-brand-mark__lid--top::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 16%;
+  height: 24%;
+  border-top: 0.06em solid rgba(98, 113, 143, 0.34);
+  border-radius: 999px;
+  opacity: 0.72;
+}
+
+.auth-brand-mark__lid--top::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 9%;
+  height: 0.05em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(34, 41, 58, 0.12), rgba(48, 58, 80, 0.38), rgba(34, 41, 58, 0.12));
+}
+
+.auth-brand-mark__lid--bottom {
+  bottom: -16%;
+  height: 24%;
+  border-radius: 42% 42% 999px 999px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(228, 235, 244, 0.92),
+      rgba(188, 198, 216, 0.86) 38%,
+      rgba(98, 113, 142, 0.82) 100%
+    );
+  transform-origin: center bottom;
+}
+
+.auth-brand-mark__lid--bottom::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 0.02em;
+  height: 0.06em;
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.78);
+}
+
+.auth-brand-mark__lid--bottom::after {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 0.11em;
+  height: 0.06em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(52, 60, 76, 0.12), rgba(60, 72, 94, 0.34), rgba(52, 60, 76, 0.12));
+}

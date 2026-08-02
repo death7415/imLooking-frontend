@@ -2,32 +2,35 @@
 
 ## Design Direction
 
-Trust-first premium glass system.
+Trust-first romantic liquid-glass system.
 
-We can use glassmorphism, but only as an accent language. Enterprise-grade dating UX cannot rely on heavy blur, low-contrast text, or decorative transparency that harms readability. Accessibility and trust beat visual trendiness.
+The visual language keeps the darker romantic-adventure atmosphere in the backdrop, while the surfaces themselves carry the liquid-glass behavior through blob geometry, frosted refraction, and watery highlights. Transparency and blur still need discipline, but the product should feel atmospheric and fluid rather than like a flat background repaint.
 
 ## Visual Principles
 
 - Calm, premium, emotionally warm.
-- Soft depth, not noisy decoration.
+- Liquid depth with flowing highlights and water-like edges, not flat panes.
 - High readability over every background.
 - Clear hierarchy before visual flourish.
 - Motion should support confidence, not show off.
 
 ## Style Rules
 
-### Glassmorphism Usage
+### Liquid Glass Usage
 
-- Use glass panels for overlays, modals, hero cards, and premium emphasis zones.
+- Use liquid-glass panels for overlays, modals, hero cards, shell chrome, and premium emphasis zones.
+- Prefer blob or asymmetrical rounded forms over rigid rectangles when a surface is meant to feel fluid.
 - Keep primary reading areas on stable high-contrast surfaces.
-- Avoid stacking multiple blur layers under body text.
+- Avoid stacking multiple heavy blur layers under body text.
 - Never place small low-weight text on translucent surfaces without a solid contrast assist.
+- Prefer layered highlights, refraction-like gradients, soft inner glow, bright edge sheen, subtle caustic reflections, and visibly fluid silhouettes over flat frosted boxes.
 
 ### Color System
 
-- Neutral base with one warm brand color and one cool accent.
+- Dark romantic backdrop with blush, sunset, and cool-aqua liquid accents.
 - Semantic colors for success, warning, danger, info.
 - Status colors must pass contrast requirements in both filled and subtle variants.
+- Backgrounds should remain gradient-led rather than collapsing to solid fills.
 
 ### Typography
 
@@ -51,13 +54,15 @@ We can use glassmorphism, but only as an accent language. Enterprise-grade datin
 
 ## Current Foundation Implementation
 
-- The first shell uses a glass-accent chrome around a high-contrast content area.
-- Navigation uses pill-based states with clear active and hover treatment.
-- Shared tokens now define the base surface, text, accent, radius, and shadow system.
+- The first shell now keeps a darker atmospheric gradient backdrop and pushes the liquid language into the surfaces themselves.
+- Navigation uses soft blob-pill states with clear active and hover treatment.
+- Shared tokens now define the base liquid-glass surface, romantic accent palette, blob radius language, and shadow system.
 - Placeholder pages use one reusable panel pattern so we can evolve screens without visual drift.
+- The app now opens on a dedicated animated auth splash before handing off to the login screen.
 - The login landing now uses a dedicated animated auth composition instead of the generic placeholder panel.
-- The `imlooking` brand mark now docks into the login modal edge instead of reading like a second glass card.
-- The `imlooking` brand mark now stays on one line, with delayed eye landing, side-to-side pupil motion, and more human eyelid behavior.
+- The `imLooking` brand mark now drops from above in separate parts on the splash and lands on the login modal edge on the following screen.
+- The `imLooking` brand mark now stays on one line, with delayed eye landing, side-to-side pupil motion, sculpted lids, finer human-like upper lashes, subtle eye depth, and no extra dock box under the eyes.
+- Shell, panel, splash, and login surfaces now use darker liquid-glass layering with brighter edge sheen, watery blob silhouettes, a darker core, and milky cloud buildup along the lower surface without changing the whole app into a pale theme.
 - The auth entry experience no longer exposes a visual path back to the main app before login.
 
 ## Component Expectations
@@ -84,7 +89,7 @@ We can use glassmorphism, but only as an accent language. Enterprise-grade datin
 
 ## Inference
 
-The choice to keep glassmorphism as a controlled accent is a product decision derived from WCAG accessibility requirements and enterprise UX risk tolerance, not a literal rule from one external source.
+The choice to use liquid-glass surfaces with romantic/adventure gradients is a product design direction for this repo, constrained by WCAG accessibility requirements and enterprise UX risk tolerance rather than copied from one external source.
 
 ## References
 
