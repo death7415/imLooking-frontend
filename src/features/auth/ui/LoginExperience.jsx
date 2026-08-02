@@ -4,7 +4,7 @@ import './LoginExperience.css'
 
 export function LoginExperience() {
   return (
-    <section className="login-experience">
+    <>
       <div className="login-experience__ambient" aria-hidden="true" />
 
       <div className="login-experience__wrap">
@@ -70,6 +70,6 @@ export function LoginExperience() {
           </p>
         </motion.div>
       </div>
-    </section>
+    </>
   )
 }
