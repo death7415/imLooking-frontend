@@ -54,8 +54,9 @@
   z-index: 3;
   width: max-content;
   max-width: 100%;
-  margin-bottom: -2.4rem;
+  margin-bottom: -1.6rem;
   pointer-events: none;
+  filter: drop-shadow(0 12px 26px rgba(12, 5, 14, 0.5));
 }
 
 .login-experience__card {
@@ -67,7 +68,7 @@
   overflow: hidden;
   width: 100%;
   min-height: 37rem;
-  padding: 3.6rem 2.3rem 2.3rem;
+  padding: 4.6rem 2.3rem 2.3rem;
   border: 1px solid rgba(255, 247, 250, 0.26);
   border-radius: 3rem 3.4rem 3.15rem 3.5rem / 3.1rem 3rem 3.45rem 3.3rem;
   background:
