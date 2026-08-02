@@ -8,6 +8,10 @@ export function LoginExperience() {
       <div className="login-experience__ambient" aria-hidden="true" />
 
       <div className="login-experience__wrap">
+        <div className="login-experience__brand-dock">
+          <AuthBrandMark size="dock" />
+        </div>
+
         <motion.div
           className="login-experience__card"
           initial={{ opacity: 0, y: 48, scale: 0.98 }}
@@ -19,10 +23,6 @@ export function LoginExperience() {
           }}
         >
           <div className="login-experience__card-clouds" aria-hidden="true" />
-
-          <div className="login-experience__brand-dock">
-            <AuthBrandMark size="dock" />
-          </div>
 
           <header className="login-experience__card-header">
             <h1 className="login-experience__card-title">Login</h1>
