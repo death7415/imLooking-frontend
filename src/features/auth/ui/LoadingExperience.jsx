@@ -2,6 +2,8 @@ import { motion, useReducedMotion } from 'motion/react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthBrandMark } from './AuthBrandMark.jsx'
+import { AuthStageCard } from './AuthStageCard.jsx'
+import { AuthStageShell } from './AuthStageShell.jsx'
 import './LoadingExperience.css'
 
 export function LoadingExperience({ nextPath = '/login' }) {
@@ -18,9 +20,7 @@ export function LoadingExperience({ nextPath = '/login' }) {
   }, [navigate, nextPath, shouldReduceMotion])
 
   return (
-    <section className="loading-experience">
-      <div className="loading-experience__ambient" aria-hidden="true" />
-
+    <AuthStageShell frameWidth="wide" className="loading-experience">
       <div className="loading-experience__content">
         <motion.div
           className="loading-experience__brand-frame"
@@ -31,8 +31,9 @@ export function LoadingExperience({ nextPath = '/login' }) {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <div className="loading-experience__brand-clouds" aria-hidden="true" />
-          <AuthBrandMark size="hero" />
+          <AuthStageCard variant="hero" className="loading-experience__card">
+            <AuthBrandMark size="hero" />
+          </AuthStageCard>
         </motion.div>
 
         <motion.p
@@ -59,6 +60,6 @@ export function LoadingExperience({ nextPath = '/login' }) {
           }}
         />
       </div>
-    </section>
+    </AuthStageShell>
   )
 }

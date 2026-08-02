@@ -1,0 +1,65 @@
+.auth-stage-shell {
+  position: relative;
+  min-height: min(100vh - 2.5rem, 54rem);
+  display: grid;
+  place-items: center;
+  padding: 4.5rem 0 0;
+  overflow: hidden;
+}
+
+.auth-stage-shell__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.auth-stage-shell__ambient::before,
+.auth-stage-shell__ambient::after {
+  content: "";
+  position: absolute;
+  border-radius: var(--blob-orb);
+  filter: blur(82px);
+  opacity: 0.9;
+}
+
+.auth-stage-shell__ambient::before {
+  width: 20rem;
+  height: 20rem;
+  top: 8%;
+  left: 7%;
+  background:
+    radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.82), transparent 18%),
+    rgba(236, 216, 224, 0.44);
+}
+
+.auth-stage-shell__ambient::after {
+  width: 26rem;
+  height: 26rem;
+  right: 1%;
+  bottom: 6%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.78), transparent 18%),
+    rgba(203, 231, 239, 0.38);
+}
+
+.auth-stage-shell__frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 40rem);
+}
+
+.auth-stage-shell__frame--compact {
+  width: min(100%, 39rem);
+}
+
+.auth-stage-shell__frame--wide {
+  width: min(100%, 40rem);
+}
+
+@media (max-width: 640px) {
+  .auth-stage-shell {
+    min-height: auto;
+    padding-top: 1rem;
+  }
+}

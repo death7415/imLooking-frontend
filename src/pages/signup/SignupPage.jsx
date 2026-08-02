@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { AuthRoutePanel } from '../../features/auth/ui/AuthRoutePanel.jsx'
 
 export function SignupPage() {
   return (
-    <FoundationPanel
+    <AuthRoutePanel
       eyebrow="Phase 1 Route Plan"
       title="Signup now has a dedicated route in the auth boundary."
       description="This route is reserved for account creation, consent checkpoints, and early trust-building copy before users reach deeper onboarding."

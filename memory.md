@@ -7,8 +7,11 @@
 - Frontend stack: React + Vite.
 - Global motion stack: `Animate UI` patterns powered by `motion`.
 - Global scroll stack: `Lenis` for smooth scrolling and scroll-linked interactions.
+- Installed project-local UI/UX skill tooling now includes Impeccable, Taste Skill (`design-taste-frontend`), and Emil Kowalski's skill bundle under `.agents/skills`, with `skills-lock.json` created for the project install state.
+- Impeccable `init` product context is now captured in the root `PRODUCT.md`, which should act as the product-truth file for future Impeccable commands in this repo.
 - Current visual direction: darker romantic liquid-glass with blob-shaped surfaces, watery refraction, brighter edge sheen, and milky lower-edge clouding, with blush/sea accents carried mainly by the surfaces rather than a fully pale background.
 - Architecture posture: modular by domain with shared primitives and centralized providers.
+- Phase 0 status: closed.
 - Project history rule: `change.log` is the permanent reverse-chronological, append-only work log for every repo change.
 - Change scope rule: `change.log` covers code, docs, markdown, JSON, config, comments, formatting, punctuation, spacing, and any other repo edit with no exceptions.
 - Timestamp rule: every `change.log` entry uses a full local timestamp in the format `YYYY-MM-DD HH:mm:ss +/-HH:MM`.
@@ -17,9 +20,13 @@
 - Workflow rule: record any unlogged changes in `change.log` before doing new requested work.
 - Workflow rule: after completing new work, prepend the new task entry to `change.log`.
 - Phase 0 foundation now includes centralized providers, a router layer, an app shell widget, shared token/global styles, and dedicated placeholder pages.
+- Phase 0 baseline now also includes public Terms, Privacy, and community-guidelines surfaces, route-level error fallback handling, shared accessibility primitives, and automated lint/test/performance-budget checks.
 - Current route map: `/home`, `/onboarding`, and `/chat` live in the shared app shell, while `/`, `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent` live in the auth boundary; `/` is the animated loading entry that transitions into `/login`.
+- Public policy route map: `/terms`, `/privacy`, and `/community-guidelines` are available without sign-in.
 - Phase 1 milestone 1 decision: auth routing is separated from the main product shell before form implementation begins.
 - Current login entry state: `/` is the default first-load splash route and `/login` remains the dedicated sign-in route with its own auth-stage experience.
+- Auth layout-shell decision: auth routes now share reusable `AuthStageShell`, `AuthStageCard`, `AuthBrandDock`, and `AuthRoutePanel` primitives so splash, login, and placeholder auth pages all sit on the same responsive foundation.
+- Protected-route decision: unauthenticated users are redirected to `/login` when they try to open `/home`, `/chat`, or `/onboarding` directly, using a temporary local session check until real auth wiring is built.
 - Brand motion decision: the `imLooking` lockup drops in as separate brand parts on the splash, then reappears docked above the login modal and uses animated eyes as the `oo` with delayed eye landing, continuous look/blink motion, finer upper lash detail, and subtle eyelid/eyeball depth.
 
 ## Standards We Are Anchoring To
@@ -55,6 +62,7 @@
 - Moderation, analytics, and messaging will be treated as attached services.
 - Every implementation step and every file edit should update both the relevant docs and `change.log`.
 - Structural work should land in the app/page/widget/shared layout unless there is a documented reason to break that boundary.
+- Baseline quality gate decision: `lint`, `test`, `build`, and `perf:check` together define the current Phase 0 repo health baseline.
 
 ## Source Anchors
 

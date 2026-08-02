@@ -1,3 +1,37 @@
+2026-08-02 23:59:59 +05:30
+- Completed Impeccable `init` for the repo by adding a root `PRODUCT.md` product-truth file aligned to the installed skill's schema and current project evidence.
+- Captured the current confirmed product posture for `imLooking`: web-first, trust-first, privacy-first, serious-relationship dating UX with app-store-safe and accessibility constraints.
+- Updated `memory.md` so future repo work treats `PRODUCT.md` as the durable Impeccable product-context source alongside the existing planning docs.
+- Re-checked repo status and proceeded without finding a new unlogged manual repo edit that needed to be logged first.
+- Proved the installed Impeccable setup on the existing login surface by running the bundled detector against `src/features/auth/ui/LoginExperience.jsx` and validating the project with a successful production `pnpm build`.
+
+2026-08-02 23:59:58 +05:30
+- Installed the three requested UI/UX toolsets at the project level following their docs: Impeccable via `npx impeccable install`, Taste Skill via `npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"`, and Emil Kowalski's bundle via `npx skills add emilkowalski/skill`.
+- Confirmed the installs landed under `.agents/skills`, including `impeccable`, `design-taste-frontend`, `emil-design-eng`, `animation-vocabulary`, `apple-design`, `find-animation-opportunities`, `improve-animations`, `pick-ui-library`, `prototype`, and `review-animations`.
+- Recorded the installed skill-tooling stack in `memory.md` as a durable project setup decision for future UI/UX work.
+- The installs also added `skills-lock.json`, and Impeccable reported its project hook installation under `.agents`.
+
+2026-08-02 23:59:41 +05:30
+- Completed Phase 1 Milestone 2 by introducing reusable auth layout primitives instead of keeping the auth stage structure split across one-off route implementations.
+- Added shared `AuthStageShell`, `AuthStageCard`, `AuthBrandDock`, and `AuthRoutePanel` components so splash, login, and placeholder auth routes now sit on one responsive auth foundation.
+- Refactored `LoginExperience` and `LoadingExperience` to consume the shared auth shell/card system and moved the remaining auth placeholders off the generic `FoundationPanel` onto the dedicated auth-route panel.
+- Updated `arch.md`, `memory.md`, and `phases.md` to record Milestone 2 as complete and document the reusable auth layout-shell decision.
+- Verified the Milestone 2 auth-layout refactor with successful lint, test, build, and performance-budget checks.
+
+2026-08-02 23:59:23 +05:30
+- Completed the remaining Phase 0 foundation gaps so the phase can now be closed honestly instead of only relabeled.
+- Added public policy surfaces for Terms, Privacy, and community guidelines, plus a route-level error fallback page.
+- Added shared accessibility primitives for buttons, inputs, dialogs, sheets, toasts, and navigation so the baseline component layer now exists before deeper feature work.
+- Added a measurable Phase 0 quality gate with `lint`, `test`, `build`, and `perf:check`, including a shared performance-budget config and baseline validation scripts.
+- Updated `arch.md`, `memory.md`, and `phases.md` to mark Phase 0 as closed and document the new foundation baseline.
+- Verified the Phase 0 closure baseline with successful lint, test, build, and performance-budget checks.
+
+2026-08-02 23:36:10 +05:30
+- Added a temporary auth-session reader and a dedicated protected-route wrapper so unauthenticated users cannot reach `/home`, `/chat`, or `/onboarding` by manually changing the URL.
+- Updated the router so app-shell routes now pass through `ProtectedAppRoute` and redirect guests back to `/login` with the attempted path preserved in route state.
+- Updated `arch.md`, `memory.md`, and `phases.md` to record the new protected-route placeholder behavior in Phase 1.
+- Verified the protected-route placeholder with a successful `pnpm build`.
+
 2026-08-02 23:32:07 +05:30
 - Reworked the auth splash and login surfaces again after the reference-image review so they now follow a denser milky liquid-glass slab pattern instead of a lighter generic glass card.
 - Kept the existing romantic color family and dark backdrop, but changed the auth panels to use a darker center core, brighter rim lighting, softer internal refraction, and cloudy white buildup near the lower edge.

@@ -1,12 +1,12 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { ROUTE_PATHS } from '../../app/router/route-paths.js'
+import { NavigationMenu } from '../../shared/ui/navigation-menu/NavigationMenu.jsx'
 import './AppShell.css'
 
 const navItems = [
   { to: ROUTE_PATHS.HOME, label: 'Home' },
   { to: ROUTE_PATHS.ONBOARDING, label: 'Onboarding' },
   { to: ROUTE_PATHS.CHAT, label: 'Chat' },
-  { to: ROUTE_PATHS.LOGIN, label: 'Login' },
 ]
 
 export function AppShell() {
@@ -19,21 +19,7 @@ export function AppShell() {
             <span className="app-shell__brand-name">imLooking Foundation</span>
           </div>
 
-          <nav className="app-shell__nav" aria-label="Primary">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  isActive
-                    ? 'app-shell__nav-link app-shell__nav-link--active'
-                    : 'app-shell__nav-link'
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+          <NavigationMenu items={navItems} ariaLabel="Primary" />
         </header>
 
         <section className="app-shell__content">

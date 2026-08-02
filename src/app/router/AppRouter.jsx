@@ -4,19 +4,25 @@ import { AuthRouteBoundary } from '../../widgets/auth-route-boundary/AuthRouteBo
 import { AppShell } from '../../widgets/app-shell/AppShell.jsx'
 import { AgeGatePage } from '../../pages/age-gate/AgeGatePage.jsx'
 import { ChatPage } from '../../pages/chat/ChatPage.jsx'
+import { CommunityGuidelinesPage } from '../../pages/community-guidelines/CommunityGuidelinesPage.jsx'
 import { ConsentPage } from '../../pages/consent/ConsentPage.jsx'
+import { RouteErrorPage } from '../../pages/error/RouteErrorPage.jsx'
 import { ForgotPasswordPage } from '../../pages/forgot-password/ForgotPasswordPage.jsx'
 import { HomePage } from '../../pages/home/HomePage.jsx'
 import { LoadingPage } from '../../pages/loading/LoadingPage.jsx'
 import { LoginPage } from '../../pages/login/LoginPage.jsx'
 import { OnboardingPage } from '../../pages/onboarding/OnboardingPage.jsx'
+import { PrivacyPage } from '../../pages/privacy/PrivacyPage.jsx'
 import { ResetPasswordPage } from '../../pages/reset-password/ResetPasswordPage.jsx'
 import { SignupPage } from '../../pages/signup/SignupPage.jsx'
+import { TermsPage } from '../../pages/terms/TermsPage.jsx'
+import { ProtectedAppRoute } from '../../widgets/protected-app-route/ProtectedAppRoute.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AuthRouteBoundary />,
+    errorElement: <RouteErrorPage />,
     children: [
       { index: true, element: <LoadingPage /> },
       { path: ROUTE_PATHS.LOGIN, element: <LoginPage /> },
@@ -28,15 +34,28 @@ const router = createBrowserRouter([
       { path: ROUTE_PATHS.RESET_PASSWORD, element: <ResetPasswordPage /> },
       { path: ROUTE_PATHS.AGE_GATE, element: <AgeGatePage /> },
       { path: ROUTE_PATHS.CONSENT, element: <ConsentPage /> },
+      { path: ROUTE_PATHS.TERMS, element: <TermsPage /> },
+      { path: ROUTE_PATHS.PRIVACY, element: <PrivacyPage /> },
+      {
+        path: ROUTE_PATHS.COMMUNITY_GUIDELINES,
+        element: <CommunityGuidelinesPage />,
+      },
     ],
   },
   {
     path: '/',
-    element: <AppShell />,
+    element: <ProtectedAppRoute />,
+    errorElement: <RouteErrorPage />,
     children: [
-      { path: ROUTE_PATHS.HOME, element: <HomePage /> },
-      { path: ROUTE_PATHS.CHAT, element: <ChatPage /> },
-      { path: ROUTE_PATHS.ONBOARDING, element: <OnboardingPage /> },
+      {
+        path: '/',
+        element: <AppShell />,
+        children: [
+          { path: ROUTE_PATHS.HOME, element: <HomePage /> },
+          { path: ROUTE_PATHS.CHAT, element: <ChatPage /> },
+          { path: ROUTE_PATHS.ONBOARDING, element: <OnboardingPage /> },
+        ],
+      },
     ],
   },
 ])

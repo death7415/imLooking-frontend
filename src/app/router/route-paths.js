@@ -8,4 +8,7 @@ export const ROUTE_PATHS = {
   RESET_PASSWORD: '/reset-password',
   AGE_GATE: '/age-gate',
   CONSENT: '/consent',
+  TERMS: '/terms',
+  PRIVACY: '/privacy',
+  COMMUNITY_GUIDELINES: '/community-guidelines',
 }

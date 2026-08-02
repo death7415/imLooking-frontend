@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { AuthRoutePanel } from '../../features/auth/ui/AuthRoutePanel.jsx'
 
 export function ForgotPasswordPage() {
   return (
-    <FoundationPanel
+    <AuthRoutePanel
       eyebrow="Phase 1 Route Plan"
       title="Forgot password is now a dedicated recovery route."
       description="This route is reserved for generic account recovery messaging and identifier submission without exposing account-enumeration signals."

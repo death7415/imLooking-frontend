@@ -2,23 +2,25 @@
 
 ## Phase 0: Foundation
 
+Status: Closed
+
 - Establish app shell, routing, environment config, telemetry, error handling, and design tokens.
 - Wire global motion and scroll systems responsibly.
 - Define Terms, Privacy, and community-policy surfaces.
 
 ### Current Progress
 
-- Completed the first router-based shell and page foundation.
+- Closed Phase 0 after completing the first router-based shell and page foundation.
 - Added root providers for motion and Lenis in a dedicated provider layer.
-- Added placeholder routes for `Home`, `Login`, `Onboarding`, and `Chat`.
-- Added shared design tokens and global styles for future feature work.
-- Build verification passed after the foundation refactor.
+- Added public Terms, Privacy, and community-guidelines routes plus route-level error fallback handling.
+- Added shared design tokens, global styles, and accessibility primitives for buttons, inputs, dialogs, sheets, toasts, and navigation.
+- Added baseline `lint`, `test`, `build`, and `perf:check` verification so quality and bundle limits are measurable.
 
 ### Exit Criteria
 
-- Build, lint, and test baselines pass.
-- Performance budget is measurable.
-- Accessibility primitives exist for buttons, inputs, dialogs, sheets, toasts, and navigation.
+- Met: build, lint, and test baselines pass.
+- Met: performance budget is measurable.
+- Met: accessibility primitives exist for buttons, inputs, dialogs, sheets, toasts, and navigation.
 
 ## Phase 1: Authentication and Safety Gate
 
@@ -77,9 +79,10 @@
 - Milestone 1 complete: auth route planning is now codified in the router.
 - Added planned auth routes for `/login`, `/signup`, `/forgot-password`, `/reset-password`, `/age-gate`, and `/consent`.
 - Split routing intent between the shared app shell and a dedicated auth boundary for future auth layout work.
-- Added TODO-marked placeholder pages so the next milestones can land without route churn.
-- Milestone 2 is underway: the auth boundary now includes a dedicated animated splash route before the login screen and the login route uses a dedicated auth-stage presentation instead of a generic foundation placeholder.
+- Replaced the generic auth placeholders with a shared auth-route panel so every auth route now sits on the same responsive auth-stage structure.
+- Milestone 2 complete: auth routes now share a dedicated auth stage shell, reusable auth glass-card container, and responsive auth page structure before deeper form wiring begins.
 - Milestone 4 has started visually: the login flow now includes an animated `imLooking` loading screen plus the temporary login form UI and auth-first entry treatment.
+- Milestone 12 has started: `/home`, `/chat`, and `/onboarding` now sit behind a protected-route wrapper so direct guest navigation redirects back to `/login`.
 
 ### Exit Criteria
 

@@ -66,11 +66,24 @@ src/
     styles/
       global.css
       tokens.css
+  scripts/
+    lint.mjs
+    check-performance-budget.mjs
   features/
     auth/
+      model/
+        auth-session.js
       ui/
+        AuthBrandDock.jsx
+        AuthBrandDock.css
         AuthBrandMark.jsx
         AuthBrandMark.css
+        AuthRoutePanel.jsx
+        AuthRoutePanel.css
+        AuthStageCard.jsx
+        AuthStageCard.css
+        AuthStageShell.jsx
+        AuthStageShell.css
         LoadingExperience.jsx
         LoadingExperience.css
         LoginExperience.jsx
@@ -78,19 +91,43 @@ src/
   pages/
     age-gate/AgeGatePage.jsx
     chat/ChatPage.jsx
+    community-guidelines/CommunityGuidelinesPage.jsx
     consent/ConsentPage.jsx
+    error/RouteErrorPage.jsx
     forgot-password/ForgotPasswordPage.jsx
     home/HomePage.jsx
     loading/LoadingPage.jsx
     login/LoginPage.jsx
     onboarding/OnboardingPage.jsx
+    privacy/PrivacyPage.jsx
     reset-password/ResetPasswordPage.jsx
     signup/SignupPage.jsx
+    terms/TermsPage.jsx
   shared/
+    config/
+      performance-budget.js
     ui/
+      button/
+        Button.jsx
+        Button.css
+      dialog/
+        Dialog.jsx
+        Dialog.css
       foundation-panel/
         FoundationPanel.jsx
         FoundationPanel.css
+      input-field/
+        InputField.jsx
+        InputField.css
+      navigation-menu/
+        NavigationMenu.jsx
+        NavigationMenu.css
+      sheet/
+        Sheet.jsx
+        Sheet.css
+      toast/
+        Toast.jsx
+        Toast.css
   widgets/
     auth-route-boundary/
       AuthRouteBoundary.jsx
@@ -98,6 +135,8 @@ src/
     app-shell/
       AppShell.jsx
       AppShell.css
+    protected-app-route/
+      ProtectedAppRoute.jsx
   App.jsx
   main.jsx
 ```
@@ -114,6 +153,9 @@ src/
 - `/reset-password`: auth boundary route
 - `/age-gate`: auth boundary route
 - `/consent`: auth boundary route
+- `/terms`: public policy route
+- `/privacy`: public policy route
+- `/community-guidelines`: public policy route
 ## Layer Responsibilities
 
 - `app`: global providers, routing, app bootstrap, theme, auth/session shell.
@@ -156,6 +198,7 @@ src/
 - Pre-size media containers to minimize CLS.
 - Use list virtualization where message or discovery surfaces can grow large.
 - Ship mobile-first responsive assets and image variants.
+- Track baseline bundle budgets in shared config and validate them against production build output.
 
 ## Accessibility Architecture
 
@@ -167,10 +210,15 @@ src/
 - Global providers are centralized in `app/providers`.
 - Routing is centralized in `app/router`.
 - Shared visual tokens and base styles are centralized in `app/styles`.
+- Shared policy surfaces now exist for Terms, Privacy, and community guidelines.
+- Shared accessibility primitives now exist for buttons, inputs, dialogs, sheets, toasts, and navigation.
 - Feature pages currently exist as route placeholders so future work can land without structural rewrites.
 - Auth route planning is now codified in the router with a dedicated auth boundary separated from the shared app shell.
 - The app now opens on a feature-level loading splash before handing off to the login route.
 - The login route now uses a feature-level auth UI component instead of a generic placeholder panel.
+- Auth routes now share a reusable stage shell, brand dock, and glass-card container so the auth layout structure can evolve without reworking each route individually.
+- Protected app routes now pass through a dedicated wrapper that redirects unauthenticated users back to `/login` instead of exposing app-shell pages by direct URL.
+- Route-level error handling now has a stable fallback page, and the repo now includes lint, test, and performance-budget scripts as the baseline quality gate.
 
 ## Inference
 

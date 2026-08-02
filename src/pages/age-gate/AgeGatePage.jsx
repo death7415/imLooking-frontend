@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { AuthRoutePanel } from '../../features/auth/ui/AuthRoutePanel.jsx'
 
 export function AgeGatePage() {
   return (
-    <FoundationPanel
+    <AuthRoutePanel
       eyebrow="Phase 1 Route Plan"
       title="Age gate is now a dedicated auth-adjacent route."
       description="This route is reserved for age confirmation and underage rejection states before users continue deeper into signup and consent flows."

@@ -1,0 +1,29 @@
+.ui-navigation-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ui-navigation-menu__link {
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--blob-pill);
+  color: var(--text-secondary);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 12px 22px rgba(25, 9, 28, 0.18);
+}
+
+.ui-navigation-menu__link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.82);
+  outline-offset: 2px;
+}
+
+.ui-navigation-menu__link--active {
+  border-color: rgba(255, 240, 245, 0.28);
+  color: var(--text-primary);
+}

@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { AuthRoutePanel } from '../../features/auth/ui/AuthRoutePanel.jsx'
 
 export function ResetPasswordPage() {
   return (
-    <FoundationPanel
+    <AuthRoutePanel
       eyebrow="Phase 1 Route Plan"
       title="Reset password has a dedicated route for token-based recovery."
       description="This route is reserved for new-password entry and invalid or expired recovery-token states."

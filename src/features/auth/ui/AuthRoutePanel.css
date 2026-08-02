@@ -1,0 +1,72 @@
+.auth-route-panel {
+  position: relative;
+  width: min(100%, 39rem);
+  padding-top: 5.25rem;
+}
+
+.auth-route-panel__card {
+  gap: 1.35rem;
+}
+
+.auth-route-panel__header {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  padding-top: 0.35rem;
+  text-align: center;
+}
+
+.auth-route-panel__eyebrow,
+.auth-route-panel__title,
+.auth-route-panel__description {
+  margin: 0;
+}
+
+.auth-route-panel__eyebrow {
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+}
+
+.auth-route-panel__title {
+  max-width: 12ch;
+  font-size: clamp(2rem, 4.8vw, 3rem);
+  line-height: 0.98;
+}
+
+.auth-route-panel__description {
+  max-width: 29rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.auth-route-panel__highlights {
+  display: grid;
+  gap: 0.85rem;
+  width: min(100%, 24rem);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.auth-route-panel__highlight {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--blob-card);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .auth-route-panel {
+    padding-top: 4.25rem;
+  }
+
+  .auth-route-panel__title {
+    font-size: clamp(1.8rem, 10vw, 2.4rem);
+  }
+}

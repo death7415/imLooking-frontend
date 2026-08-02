@@ -1,0 +1,30 @@
+.ui-toast {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 16rem;
+  max-width: 24rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--blob-card);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px) saturate(160%);
+}
+
+.ui-toast__title,
+.ui-toast__description {
+  margin: 0;
+}
+
+.ui-toast__description {
+  color: var(--text-secondary);
+}
+
+.ui-toast--success {
+  border-color: rgba(54, 211, 153, 0.32);
+}
+
+.ui-toast--error {
+  border-color: rgba(255, 157, 185, 0.38);
+}
