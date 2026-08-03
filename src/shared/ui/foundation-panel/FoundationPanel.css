@@ -114,3 +114,10 @@
     linear-gradient(210deg, rgba(255, 175, 203, 0.08), transparent 54%);
   pointer-events: none;
 }
+
+.foundation-panel__footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+}

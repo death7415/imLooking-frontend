@@ -8,6 +8,23 @@ function readStorageValue(storage) {
   }
 }
 
+function writeStorageValue(storage, value) {
+  try {
+    storage?.setItem(AUTH_SESSION_STORAGE_KEY, JSON.stringify(value))
+    return true
+  } catch {
+    return false
+  }
+}
+
+function removeStorageValue(storage) {
+  try {
+    storage?.removeItem(AUTH_SESSION_STORAGE_KEY)
+  } catch {
+    // Ignore storage cleanup failures in the frontend placeholder flow.
+  }
+}
+
 export function getAuthSession() {
   const rawValue =
     readStorageValue(window.localStorage) ??
@@ -30,6 +47,23 @@ export function getAuthSession() {
 
 export function isAuthenticated() {
   return getAuthSession().isAuthenticated
+}
+
+export function setAuthSession(session) {
+  const nextSession = {
+    isAuthenticated: session?.isAuthenticated === true,
+  }
+
+  if (!writeStorageValue(window.localStorage, nextSession)) {
+    writeStorageValue(window.sessionStorage, nextSession)
+  }
+
+  return nextSession
+}
+
+export function clearAuthSession() {
+  removeStorageValue(window.localStorage)
+  removeStorageValue(window.sessionStorage)
 }
 
 export { AUTH_SESSION_STORAGE_KEY }

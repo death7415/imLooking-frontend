@@ -1,3 +1,118 @@
+2026-08-03 23:54:53 +05:30
+- Completed the next three remaining Phase 1 auth milestones in order by replacing the `/consent` placeholder with a dedicated consent checkpoint, centralizing reusable auth validation rules, and wiring the frontend auth routes into a working placeholder flow.
+- Added `src/features/auth/model/auth-validation.js`, expanded `auth-session.js`, and updated the auth model exports so phone, email, password, confirm-password, and required-field validation plus temporary local auth-session persistence can be reused across auth screens.
+- Added `ConsentScreen` and its styling, routed age-gate into consent, routed consent back into signup, routed signup and reset-password back into login with success state, and routed login into either the originally requested protected route or `/home`.
+- Updated `LoginScreen`, `SignupScreen`, `ForgotPasswordScreen`, `ResetPasswordScreen`, `AgeGateScreen`, `ConsentPage.jsx`, `phases.md`, `memory.md`, and `arch.md` so the documented auth architecture and milestone state match the new behavior.
+- Verified Milestones 9, 11, and 12 with a successful production `pnpm build`.
+
+2026-08-03 21:55:55 +05:30
+- Completed the next three Phase 1 milestones in order by replacing the `forgot-password`, `reset-password`, and `age-gate` placeholder route panels with dedicated auth screens.
+- Added `ForgotPasswordScreen`, `ResetPasswordScreen`, and `AgeGateScreen` plus route-specific styling, all built on the shared auth feature structure and reusable auth components instead of one-off markup.
+- Wired forgot-password to controlled identifier recovery messaging, reset-password to password-entry plus invalid-or-expired token states, and age-gate to explicit eligible-versus-underage branching with a continue path into consent.
+- Updated `src/features/auth/index.js`, `src/features/auth/screens/index.js`, the three route pages, and the architecture docs so the stricter auth feature API and milestone status match the implemented screens.
+- Verified Milestones 6, 7, and 8 with a successful production `pnpm build`.
+
+2026-08-03 21:48:38 +05:30
+- Tightened the auth feature into a stricter industry-style package boundary by splitting it into `components`, `screens`, and `model`, then adding `src/features/auth/index.js` as the public feature API consumed by pages.
+- Moved route-level auth surfaces into `screens`, kept reusable primitives in `components`, added a `model/index.js` entry point, and updated page imports so route pages no longer reach into auth internals directly.
+- Simplified screen-level imports to consume the auth `components` barrel, removed the empty legacy `src/features/auth/ui` shell, and updated `arch.md`, `memory.md`, and `phases.md` so the documented structure matches the repo.
+- During verification, corrected the moved login and signup screen imports for `route-paths.js`, then re-verified the stricter auth feature refactor with a successful production `pnpm build`.
+
+2026-08-03 20:58:08 +05:30
+- Refactored the auth UI layer from one mixed folder into granular intent-based packages: `brand`, `experiences`, `feedback`, `fields`, `layout`, and `navigation`.
+- Moved the existing auth JSX and CSS files into those smaller packages, added package-level barrel files, and updated auth pages plus internal component imports so the structure is easier to scan without hunting across one oversized directory.
+- Updated `arch.md`, `memory.md`, and `phases.md` to record the new auth package-structure rule and keep the documented architecture aligned with the repo.
+- During verification, corrected the moved login and signup experience imports for `route-paths.js`, then re-verified the full refactor with a successful production `pnpm build`.
+
+2026-08-03 20:45:20 +05:30
+- Corrected a wording typo in the immediately prior `change.log` entry so the alternate login-path note reads clearly.
+
+2026-08-03 20:44:53 +05:30
+- Removed the redundant phone-number chooser from the default login view so the screen now opens directly on the phone field instead of showing the selected phone path twice.
+- Kept the alternate auth path reusable by reusing `AuthMethodSwitch` as a single-option alternate-method prompt, which now offers email-or-username plus password from the phone-first login flow and phone-number OTP from the identity flow.
+- Updated `LoginExperience.jsx`, `LoginExperience.css`, `phases.md`, `memory.md`, and `arch.md` to reflect the phone-first login contract and re-verified the change with a successful production `pnpm build`.
+
+2026-08-03 20:36:15 +05:30
+- Refactored the login experience into two reusable entry paths: phone number with OTP-oriented entry and email-or-username with password-based entry.
+- Added a reusable `AuthMethodSwitch` component and styling so the login method choice can be reused across auth surfaces instead of being hardcoded inside one screen.
+- Updated `LoginExperience.jsx` and `LoginExperience.css` so the phone path validates a mobile number and shows OTP placeholder status, while the email-or-username path keeps password entry plus forgot-password navigation.
+- Updated `phases.md`, `memory.md`, and `arch.md` to record the refined login contract and the new reusable auth method-switch primitive.
+- Verified the login refactor with a successful production `pnpm build`.
+
+2026-08-03 20:32:37 +05:30
+- Recorded a previously unlogged repo addition before starting new work, as required by the project workflow.
+- Found an untracked local asset at `images/brand-logo.png` and logged its presence so the repo history stays in sync before the next auth change.
+
+2026-08-03 18:42:39 +05:30
+- Smoothed the empty-state signup DOB-and-age row by aligning the split-field grid to the top and reserving consistent helper-message height beneath both columns.
+- Updated `SignupExperience.css` so the fresh form no longer shows a visually uneven age field area when the DOB helper wraps and the age helper does not.
+- Re-verified the styling adjustment with a successful production `pnpm build`.
+
+2026-08-03 18:38:57 +05:30
+- Corrected the signup age derivation so it now uses the current date for a proper years-and-months calculation instead of showing only whole years.
+- Changed the signup age field to display values such as `1 yr 10 mons` or `2 yrs 3 mons`, and aligned the 18+ gate with that same age-part calculation.
+- Added a future-date guard for DOB and re-verified the change with a successful production `pnpm build`.
+
+2026-08-03 18:28:47 +05:30
+- Tightened the signup validation follow-up by adding explicit required-field messages for blank email, mobile number, and password states instead of falling through to verification-only copy.
+- Removed the now-unused `AuthInlineError` import from `SignupExperience.jsx` after switching the final signup status message to helper-text presentation.
+- Re-verified the signup flow changes with another successful production `pnpm build`.
+
+2026-08-03 18:27:48 +05:30
+- Refined the Phase 1 signup implementation so it now captures full name, email, mobile number, username, password, confirm password, date of birth, and auto-derived age instead of the earlier smaller placeholder field set.
+- Added frontend email-format validation, password-confirmation handling, 18+ age restriction handling, and a debounced username-availability check that waits for typing to settle before evaluating a temporary local availability list.
+- Extended the shared auth text-field primitive and form-field styling to support inline field actions, then used that to add `Send OTP` actions for both email and mobile with temporary frontend demo auto-verification states.
+- Updated `phases.md`, `memory.md`, and `arch.md` so Milestone 5, signup behavior, and the temporary OTP and username-check placeholder decisions match the current implementation.
+- Verified the refactor with a successful production `pnpm build`.
+
+2026-08-03 18:22:24 +05:30
+- Recorded a previously unlogged manual repo edit before starting new work, as required by the project workflow.
+- Updated `rules.md` with an explicit instruction to always add `TODO` markers for steps that still need attention, API calls, or backend work.
+
+2026-08-03 16:19:43 +05:30
+- Continued in order and completed Phase 1 Milestone 5 by replacing the signup placeholder route with a dedicated frontend signup experience.
+- Added `SignupExperience.jsx` and `SignupExperience.css` with controlled name, identifier, and password fields, consent checkboxes for legal/community acknowledgments, a create-account CTA, disabled/loading behavior, and a generic error state.
+- Updated `SignupPage.jsx` to render the new signup experience and documented the milestone completion in `phases.md`, `memory.md`, and `arch.md`.
+- Kept real backend signup requests deferred to the later auth-flow wiring milestone while making the signup screen production-shaped at the frontend layer.
+
+2026-08-03 16:19:42 +05:30
+- Fixed the forgot-password route UX gap by adding a clear `Back to login` action.
+- Extended the shared `AuthRoutePanel` with an optional footer slot so route-specific actions can be added without breaking the common auth placeholder layout.
+- Wired the forgot-password page to use that new footer slot with a secondary `Back to login` button that navigates to `/login`.
+- Updated `memory.md` to record the shared auth-route-panel footer-action pattern as a durable auth-layout decision.
+
+2026-08-03 16:19:41 +05:30
+- Completed Phase 1 Milestone 4 in order by turning the login screen from a static placeholder form into a stateful frontend experience.
+- Added controlled identifier and password input state to `LoginExperience`, plus a real submit handler, disabled CTA behavior, loading feedback, and a visible generic error state.
+- Updated shared auth behavior so the password reveal toggle respects disabled form state, and updated the shared button styling to show a proper disabled state.
+- Updated `phases.md`, `memory.md`, and `arch.md` to record Milestone 4 as complete while keeping real backend auth requests deferred to the later auth-flow wiring milestone.
+
+2026-08-03 13:47:06 +05:30
+- Fixed the legal-page return-flow issue by making auth legal links carry their origin route in navigation state.
+- Added a shared `PublicPolicyPage` wrapper so Terms, Privacy, and Community Guidelines now show a back button and can return users to the route they came from.
+- Extended `FoundationPanel` with an optional footer slot so the public policy surfaces can expose a consistent back action without duplicating layout markup.
+- Added a fallback policy-page return behavior: use explicit origin when present, otherwise browser history when available, otherwise return to `/login`.
+
+2026-08-03 13:47:05 +05:30
+- Returned to the agreed sequence and completed Phase 1 Milestone 3 instead of skipping ahead again.
+- Added shared auth form primitives in `src/features/auth/ui`: `AuthTextField`, `AuthPasswordField`, `AuthCheckboxField`, `AuthHelperText`, `AuthInlineError`, `AuthSubmitButton`, plus shared field styling.
+- Refactored the current login surface to consume the new shared auth text, password, helper-text, and submit primitives instead of keeping field and button markup styled ad hoc inside `LoginExperience`.
+- Updated `phases.md`, `arch.md`, and `memory.md` to record Milestone 3 as complete and document the new shared auth primitive layer for the remaining Phase 1 screens.
+
+2026-08-03 13:47:04 +05:30
+- Progressed Phase 1 by implementing the new legal-links milestone instead of leaving it only as planning text.
+- Added a reusable `AuthLegalLinks` component and shared styling so auth surfaces can expose Terms, Privacy Policy, and Community Guidelines from one place.
+- Wired the shared legal-links footer into the shared `AuthRoutePanel`, which covers signup plus the current forgot-password, reset-password, age-gate, and consent placeholder routes.
+- Wired the same legal-links pattern into the current login surface and replaced raw auth `<a href>` links there with router `Link` usage for internal navigation.
+- Updated `phases.md`, `memory.md`, and `arch.md` to record Milestone 10 as complete and document the shared auth legal-links pattern.
+
+2026-08-03 13:47:03 +05:30
+- Added a dedicated Phase 1 milestone for placing Terms, Privacy, and community-guidelines links on signup and other required auth or trust-gate surfaces, and renumbered the later Phase 1 milestones accordingly in `phases.md`.
+- Added a single frontend env setup with `.env` and `.env.example`, setting `VITE_API_BASE_URL` to `https://imlooking.onrender.com`.
+- Updated `.gitignore` to ignore local env files while keeping `.env.example` trackable.
+- Added centralized shared API configuration in `src/shared/config/env.js` and `src/shared/config/api.js` so backend base URL handling and endpoint paths are not hardcoded inside feature components.
+- Updated `arch.md` and `memory.md` to record the new env and endpoint-registry decisions as durable project architecture.
+
 2026-08-02 23:59:59 +05:30
 - Completed Impeccable `init` for the repo by adding a root `PRODUCT.md` product-truth file aligned to the installed skill's schema and current project evidence.
 - Captured the current confirmed product posture for `imLooking`: web-first, trust-first, privacy-first, serious-relationship dating UX with app-store-safe and accessibility constraints.

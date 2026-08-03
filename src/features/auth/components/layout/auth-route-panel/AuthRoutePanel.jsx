@@ -1,6 +1,7 @@
-import { AuthBrandDock } from './AuthBrandDock.jsx'
-import { AuthStageCard } from './AuthStageCard.jsx'
-import { AuthStageShell } from './AuthStageShell.jsx'
+import { AuthBrandDock } from '../../brand/auth-brand-dock/AuthBrandDock.jsx'
+import { AuthLegalLinks } from '../../navigation/auth-legal-links/AuthLegalLinks.jsx'
+import { AuthStageCard } from '../auth-stage-card/AuthStageCard.jsx'
+import { AuthStageShell } from '../auth-stage-shell/AuthStageShell.jsx'
 import './AuthRoutePanel.css'
 
 export function AuthRoutePanel({
@@ -8,6 +9,7 @@ export function AuthRoutePanel({
   title,
   description,
   highlights = [],
+  footer = null,
 }) {
   return (
     <AuthStageShell frameWidth="compact">
@@ -28,6 +30,10 @@ export function AuthRoutePanel({
               </li>
             ))}
           </ul>
+
+          {footer ? <div className="auth-route-panel__footer">{footer}</div> : null}
+
+          <AuthLegalLinks className="auth-route-panel__legal-links" />
         </AuthStageCard>
       </div>
     </AuthStageShell>

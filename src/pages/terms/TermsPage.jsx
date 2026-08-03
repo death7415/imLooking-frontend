@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { PublicPolicyPage } from '../../features/legal/ui/PublicPolicyPage.jsx'
 
 export function TermsPage() {
   return (
-    <FoundationPanel
+    <PublicPolicyPage
       eyebrow="Phase 0 Policy Surface"
       title="Terms of use now have a dedicated public route."
       description="This surface establishes a stable foundation route for legal terms, account rules, eligibility language, and future enforcement copy before deeper auth and onboarding wiring lands."

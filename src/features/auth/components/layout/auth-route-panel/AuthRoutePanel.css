@@ -61,6 +61,15 @@
   line-height: 1.7;
 }
 
+.auth-route-panel__footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.auth-route-panel__legal-links {
+  margin-top: 0.1rem;
+}
+
 @media (max-width: 640px) {
   .auth-route-panel {
     padding-top: 4.25rem;

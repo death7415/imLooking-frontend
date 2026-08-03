@@ -1,6 +1,6 @@
 import { ROUTE_PATHS } from '../../app/router/route-paths.js'
-import { LoadingExperience } from '../../features/auth/ui/LoadingExperience.jsx'
+import { LoadingScreen } from '../../features/auth/index.js'
 
 export function LoadingPage() {
-  return <LoadingExperience nextPath={ROUTE_PATHS.LOGIN} />
+  return <LoadingScreen nextPath={ROUTE_PATHS.LOGIN} />
 }

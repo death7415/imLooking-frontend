@@ -1,4 +1,4 @@
-import { AuthBrandMark } from './AuthBrandMark.jsx'
+import { AuthBrandMark } from '../auth-brand-mark/AuthBrandMark.jsx'
 import './AuthBrandDock.css'
 
 export function AuthBrandDock() {

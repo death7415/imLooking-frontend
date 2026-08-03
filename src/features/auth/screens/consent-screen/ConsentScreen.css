@@ -1,0 +1,85 @@
+.consent-screen__stage {
+  position: relative;
+  width: min(100%, 40rem);
+  padding-top: 5.25rem;
+}
+
+.consent-screen__card-motion {
+  display: grid;
+}
+
+.consent-screen__card-header {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  padding-top: 0.35rem;
+  text-align: center;
+}
+
+.consent-screen__card-title {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(2rem, 4.8vw, 3.15rem);
+  line-height: 0.95;
+}
+
+.consent-screen__card-copy {
+  margin: 0;
+  max-width: 29rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.consent-screen__form {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 27rem);
+  margin: 0 auto;
+}
+
+.consent-screen__agreements {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.consent-screen__agreements a,
+.consent-screen__subcopy a {
+  color: var(--accent-cool);
+}
+
+.consent-screen__meta {
+  margin-top: 0.1rem;
+}
+
+.consent-screen__status {
+  width: min(100%, 27rem);
+  margin: -0.1rem auto 0;
+}
+
+.consent-screen__status--muted {
+  color: var(--text-secondary);
+}
+
+.consent-screen__subcopy {
+  margin: 0;
+  width: min(100%, 18rem);
+  justify-self: center;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .consent-screen__stage {
+    padding-top: 4.25rem;
+  }
+
+  .consent-screen__card-title {
+    font-size: clamp(1.85rem, 10vw, 2.5rem);
+  }
+
+  .consent-screen__form,
+  .consent-screen__status {
+    width: 100%;
+  }
+}

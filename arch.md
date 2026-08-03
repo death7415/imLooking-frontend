@@ -71,23 +71,84 @@ src/
     check-performance-budget.mjs
   features/
     auth/
+      index.js
       model/
         auth-session.js
-      ui/
-        AuthBrandDock.jsx
-        AuthBrandDock.css
-        AuthBrandMark.jsx
-        AuthBrandMark.css
-        AuthRoutePanel.jsx
-        AuthRoutePanel.css
-        AuthStageCard.jsx
-        AuthStageCard.css
-        AuthStageShell.jsx
-        AuthStageShell.css
-        LoadingExperience.jsx
-        LoadingExperience.css
-        LoginExperience.jsx
-        LoginExperience.css
+        auth-validation.js
+      components/
+        index.js
+        brand/
+          auth-brand-dock/
+            AuthBrandDock.jsx
+            AuthBrandDock.css
+          auth-brand-mark/
+            AuthBrandMark.jsx
+            AuthBrandMark.css
+          index.js
+        feedback/
+          auth-helper-text/
+            AuthHelperText.jsx
+            AuthHelperText.css
+          auth-inline-error/
+            AuthInlineError.jsx
+            AuthInlineError.css
+          index.js
+        fields/
+          auth-checkbox-field/
+            AuthCheckboxField.jsx
+            AuthCheckboxField.css
+          auth-form-field/
+            AuthFormField.css
+          auth-password-field/
+            AuthPasswordField.jsx
+          auth-submit-button/
+            AuthSubmitButton.jsx
+            AuthSubmitButton.css
+          auth-text-field/
+            AuthTextField.jsx
+          index.js
+        layout/
+          auth-route-panel/
+            AuthRoutePanel.jsx
+            AuthRoutePanel.css
+          auth-stage-card/
+            AuthStageCard.jsx
+            AuthStageCard.css
+          auth-stage-shell/
+            AuthStageShell.jsx
+            AuthStageShell.css
+          index.js
+        navigation/
+          auth-legal-links/
+            AuthLegalLinks.jsx
+            AuthLegalLinks.css
+          auth-method-switch/
+            AuthMethodSwitch.jsx
+            AuthMethodSwitch.css
+          index.js
+      screens/
+        age-gate-screen/
+          AgeGateScreen.jsx
+          AgeGateScreen.css
+        consent-screen/
+          ConsentScreen.jsx
+          ConsentScreen.css
+        forgot-password-screen/
+          ForgotPasswordScreen.jsx
+          ForgotPasswordScreen.css
+        loading-screen/
+          LoadingScreen.jsx
+          LoadingScreen.css
+        login-screen/
+          LoginScreen.jsx
+          LoginScreen.css
+        reset-password-screen/
+          ResetPasswordScreen.jsx
+          ResetPasswordScreen.css
+        signup-screen/
+          SignupScreen.jsx
+          SignupScreen.css
+        index.js
   pages/
     age-gate/AgeGatePage.jsx
     chat/ChatPage.jsx
@@ -105,6 +166,8 @@ src/
     terms/TermsPage.jsx
   shared/
     config/
+      api.js
+      env.js
       performance-budget.js
     ui/
       button/
@@ -171,6 +234,9 @@ src/
 - Store deploy-specific configuration in environment variables, following Twelve-Factor config guidance.
 - One typed API client per backend boundary.
 - All client-side API calls pass through centralized request, retry, timeout, and error-normalization code.
+- Current frontend env decision: a single `VITE_API_BASE_URL` value is used for now, with shared URL normalization in `shared/config/env.js`.
+- Current backend base URL default: `https://imlooking.onrender.com`.
+- Current endpoint-registry decision: relative backend paths live in `shared/config/api.js` so auth and future flows do not hardcode URLs inside components.
 
 ## Security Architecture
 
@@ -217,8 +283,17 @@ src/
 - The app now opens on a feature-level loading splash before handing off to the login route.
 - The login route now uses a feature-level auth UI component instead of a generic placeholder panel.
 - Auth routes now share a reusable stage shell, brand dock, and glass-card container so the auth layout structure can evolve without reworking each route individually.
+- Auth surfaces now share a reusable legal-links footer pattern so policy navigation can be shown consistently on login, signup, and trust-gate routes.
+- Auth surfaces now also share dedicated auth-form primitives for text input, password entry, checkbox consent, helper text, inline errors, and submit actions so later auth pages can reuse one interaction layer.
+- Auth packages now follow a stricter boundary: `screens` for route-level auth surfaces, `components` for reusable view building blocks, and `model` for auth state and logic, with `src/features/auth/index.js` acting as the public API consumed by pages.
+- The login screen is now production-shaped at the frontend layer with phone-number OTP as the default visible path and a reusable alternate-method switch into the email-or-username plus password path, while backend authentication wiring remains a separate later milestone.
+- The signup screen is now production-shaped at the frontend layer with controlled full-name, email, mobile-number, username, password, confirm-password, DOB, and auto-derived age fields, plus consent checkboxes and visible disabled/loading states.
+- The signup flow currently includes frontend-only email/mobile OTP placeholders and a debounced username-availability placeholder so the UX contract is in place before backend auth APIs are wired.
+- The forgot-password, reset-password, age-gate, and consent routes now all use dedicated auth screens instead of placeholder panels, so the auth trust-gate flow is represented in the real feature structure rather than generic route-plan copy.
+- Shared auth validation rules now live in `features/auth/model/auth-validation.js`, and the frontend auth flow now uses local placeholder session persistence to move from login into protected routes until backend auth APIs replace that client-side bridge.
 - Protected app routes now pass through a dedicated wrapper that redirects unauthenticated users back to `/login` instead of exposing app-shell pages by direct URL.
 - Route-level error handling now has a stable fallback page, and the repo now includes lint, test, and performance-budget scripts as the baseline quality gate.
+- Shared config now includes a centralized env reader and API endpoint registry for future backend wiring.
 
 ## Inference
 

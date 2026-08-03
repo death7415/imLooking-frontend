@@ -28,6 +28,25 @@
 - Auth layout-shell decision: auth routes now share reusable `AuthStageShell`, `AuthStageCard`, `AuthBrandDock`, and `AuthRoutePanel` primitives so splash, login, and placeholder auth pages all sit on the same responsive foundation.
 - Protected-route decision: unauthenticated users are redirected to `/login` when they try to open `/home`, `/chat`, or `/onboarding` directly, using a temporary local session check until real auth wiring is built.
 - Brand motion decision: the `imLooking` lockup drops in as separate brand parts on the splash, then reappears docked above the login modal and uses animated eyes as the `oo` with delayed eye landing, continuous look/blink motion, finer upper lash detail, and subtle eyelid/eyeball depth.
+- Current backend env decision: the frontend uses a single `VITE_API_BASE_URL` value for now, pointing to `https://imlooking.onrender.com`.
+- Current API config decision: backend URL normalization lives in `src/shared/config/env.js`, and centralized relative endpoint definitions live in `src/shared/config/api.js`.
+- Phase 1 planning decision: legal links for Terms, Privacy, and community guidelines on signup and other required auth/trust-gate surfaces are now tracked as their own milestone instead of being implied only by Phase 0 policy pages.
+- Auth legal-links decision: the auth flow now uses a shared `AuthLegalLinks` component so login and auth-route-panel surfaces expose Terms, Privacy Policy, and Community Guidelines from one reusable footer pattern.
+- Policy-route back-navigation decision: auth legal links now pass the current route as navigation state, and public policy pages expose a shared back button that returns users to their origin when available.
+- Auth primitives decision: shared auth text/password/checkbox/helper/error/submit primitives now live in `src/features/auth/components` and should be reused for the remaining Phase 1 auth forms instead of hand-rolling each screen.
+- Auth package-structure decision: auth now follows a stricter feature boundary with `components`, `screens`, and `model`, and the reusable component layer is grouped by intent into `brand`, `feedback`, `fields`, `layout`, and `navigation`, with `src/features/auth/index.js` acting as the public feature API.
+- Login screen decision: the current login surface is phone-first, shows the phone number field by default for OTP-based access, and exposes email or username plus password only as the reusable alternate login path.
+- Login OTP decision: the phone-number login path currently stops at a frontend OTP-dispatch placeholder and intentionally defers real OTP delivery and code verification to the later auth-flow wiring milestone.
+- Auth route-panel decision: the shared auth placeholder panel now supports an optional footer action so route-specific helpers like `Back to login` can be added without forking the layout component.
+- Signup screen decision: the signup route now uses a dedicated frontend experience with controlled full-name, email, mobile, username, password, confirm-password, DOB, and auto-derived age state, plus legal/community consent checkboxes and gated continue behavior.
+- Signup verification decision: email and mobile verification are both required on the signup form, and the current frontend uses temporary demo OTP auto-verification placeholders until real backend OTP endpoints are ready.
+- Signup username decision: username availability is checked through a debounced frontend placeholder flow so the UI waits for typing to settle before validating handle availability.
+- Forgot-password decision: the recovery route now uses a dedicated screen with controlled identifier entry and generic success messaging so the flow stays usable without exposing account-existence signals.
+- Reset-password decision: the reset route now supports dedicated invalid and expired token UI states through the query string while keeping password-entry and confirm-password behavior on the ready state.
+- Age-gate decision: the age-gate route now uses an explicit eligible-versus-underage choice screen, blocks progression for underage selection, and sends eligible users forward to consent.
+- Consent decision: the consent route now uses an explicit checkbox checkpoint for Terms, Privacy Policy, and Community Guidelines, blocks progression until all are accepted, and passes users back into signup when it is used as part of the auth path.
+- Validation decision: shared email, phone-number, required-field, password, and confirm-password rules now live in the auth model so auth screens reuse one validation contract instead of drifting independently.
+- Temporary auth-session decision: successful frontend login writes a local placeholder authenticated session so protected-route redirects, signup handoff, and reset-password handoff can be tested before backend auth APIs are live.
 
 ## Standards We Are Anchoring To
 

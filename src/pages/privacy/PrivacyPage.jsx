@@ -1,8 +1,8 @@
-import { FoundationPanel } from '../../shared/ui/foundation-panel/FoundationPanel.jsx'
+import { PublicPolicyPage } from '../../features/legal/ui/PublicPolicyPage.jsx'
 
 export function PrivacyPage() {
   return (
-    <FoundationPanel
+    <PublicPolicyPage
       eyebrow="Phase 0 Policy Surface"
       title="Privacy now has a dedicated public route."
       description="This foundation page reserves a stable location for data collection disclosures, retention policy, visibility rules, and privacy rights before backend-connected settings arrive."

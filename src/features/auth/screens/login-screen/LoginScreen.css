@@ -1,0 +1,109 @@
+.login-experience__stage {
+  position: relative;
+  width: min(100%, 39rem);
+  padding-top: 5.25rem;
+}
+
+.login-experience__card-motion {
+  display: grid;
+}
+
+.login-experience__card-header {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  padding-top: 0.35rem;
+  text-align: center;
+}
+
+.login-experience__card-title {
+  margin: 0;
+  max-width: 11ch;
+  font-size: clamp(2.1rem, 4.8vw, 3.45rem);
+  line-height: 0.94;
+}
+
+.login-experience__card-copy {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.login-experience__form {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 25.5rem);
+  margin: 0 auto;
+}
+
+.login-experience__method-switch {
+  margin-top: 0.1rem;
+}
+
+.login-experience__form-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-top: 0.15rem;
+}
+
+.login-experience__form-meta--single {
+  justify-content: flex-start;
+}
+
+.login-experience__link {
+  color: var(--accent-cool);
+}
+
+.login-experience__status {
+  width: min(100%, 25.5rem);
+  margin: -0.1rem auto 0;
+}
+
+.login-experience__status--info {
+  color: rgba(255, 245, 249, 0.92);
+}
+
+.login-experience__subcopy {
+  margin: 0;
+  width: min(100%, 20rem);
+  justify-self: center;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.login-experience__legal-links {
+  margin-top: -0.2rem;
+}
+
+.login-experience__subcopy a {
+  color: var(--accent-cool);
+}
+
+@media (max-width: 640px) {
+  .login-experience__stage {
+    padding-top: 4.25rem;
+  }
+
+  .login-experience__card-title {
+    font-size: clamp(1.9rem, 10vw, 2.6rem);
+  }
+
+  .login-experience__form-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .login-experience__status {
+    width: 100%;
+  }
+
+  .login-experience__form-meta .auth-helper-text {
+    text-align: left;
+  }
+}

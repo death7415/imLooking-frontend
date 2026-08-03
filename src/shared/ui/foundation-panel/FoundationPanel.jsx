@@ -6,6 +6,7 @@ export function FoundationPanel({
   title,
   description,
   highlights = [],
+  footer = null,
 }) {
   return (
     <motion.section
@@ -26,6 +27,8 @@ export function FoundationPanel({
           </li>
         ))}
       </ul>
+
+      {footer ? <div className="foundation-panel__footer">{footer}</div> : null}
     </motion.section>
   )
 }

@@ -1,12 +1,10 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthBrandMark } from './AuthBrandMark.jsx'
-import { AuthStageCard } from './AuthStageCard.jsx'
-import { AuthStageShell } from './AuthStageShell.jsx'
-import './LoadingExperience.css'
+import { AuthBrandMark, AuthStageCard, AuthStageShell } from '../../components/index.js'
+import './LoadingScreen.css'
 
-export function LoadingExperience({ nextPath = '/login' }) {
+export function LoadingScreen({ nextPath = '/login' }) {
   const navigate = useNavigate()
   const shouldReduceMotion = useReducedMotion()
 
