@@ -1,3 +1,7 @@
+2026-08-05 18:46:41 +05:30
+- Copied the installed `hallmark` skill into the project-local `.agents/skills/hallmark` folder so it sits alongside the other repo-scoped design skills instead of only existing in the global Codex skills directory.
+- Preserved the upstream Hallmark skill bundle structure with its `SKILL.md` and `references/` tree unchanged, keeping the project copy aligned with the installed source skill.
+
 2026-08-03 23:54:53 +05:30
 - Completed the next three remaining Phase 1 auth milestones in order by replacing the `/consent` placeholder with a dedicated consent checkpoint, centralizing reusable auth validation rules, and wiring the frontend auth routes into a working placeholder flow.
 - Added `src/features/auth/model/auth-validation.js`, expanded `auth-session.js`, and updated the auth model exports so phone, email, password, confirm-password, and required-field validation plus temporary local auth-session persistence can be reused across auth screens.
