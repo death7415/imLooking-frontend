@@ -12,11 +12,8 @@
   width: min(100%, 34rem);
   padding: 1.5rem;
   border: 1px solid var(--border-soft);
-  border-radius: var(--blob-panel);
-  background:
-    var(--glass-caustic),
-    var(--glass-surface-strong),
-    rgba(32, 14, 37, 0.88);
+  border-radius: var(--radius-xl);
+  background: var(--bg-panel-strong);
   box-shadow: var(--shadow-elevated);
 }
 

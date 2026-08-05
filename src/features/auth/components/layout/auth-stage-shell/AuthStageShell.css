@@ -18,9 +18,9 @@
 .auth-stage-shell__ambient::after {
   content: "";
   position: absolute;
-  border-radius: var(--blob-orb);
-  filter: blur(82px);
-  opacity: 0.9;
+  border-radius: var(--radius-pill);
+  filter: blur(32px);
+  opacity: 0.6;
 }
 
 .auth-stage-shell__ambient::before {

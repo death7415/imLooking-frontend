@@ -53,10 +53,8 @@
 .auth-route-panel__highlight {
   padding: 1rem 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--blob-card);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary);
   line-height: 1.7;
 }

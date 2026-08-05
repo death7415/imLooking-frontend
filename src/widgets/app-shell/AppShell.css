@@ -11,15 +11,10 @@
   margin: 0 auto;
   padding: 1rem;
   border: 1px solid var(--border-soft);
-  border-radius: var(--blob-shell);
-  background:
-    var(--glass-caustic),
-    var(--glass-surface-strong),
-    rgba(31, 13, 36, 0.38);
-  backdrop-filter: blur(38px) saturate(180%) brightness(1.06);
-  box-shadow:
-    var(--glass-inner-shadow),
-    var(--shadow-elevated);
+  border-radius: var(--radius-xl);
+  background: var(--bg-panel);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-elevated);
 }
 
 .app-shell__chrome::before,

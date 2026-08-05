@@ -29,7 +29,7 @@
   width: min(14rem, 48vw);
   height: 0.42rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--blob-pill);
+  border-radius: var(--radius-pill);
   background: linear-gradient(90deg, rgba(255, 130, 178, 0.92), rgba(255, 194, 136, 0.88), rgba(140, 230, 212, 0.88));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
