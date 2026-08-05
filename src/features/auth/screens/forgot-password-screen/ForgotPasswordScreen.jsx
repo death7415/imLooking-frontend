@@ -1,7 +1,9 @@
 import { motion } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTE_PATHS } from '../../../../app/router/route-paths.js'
+import { fetchApi } from '../../../../shared/api/api-client.js'
+import { API_ENDPOINTS } from '../../../../shared/config/api.js'
 import {
   AuthBrandDock,
   AuthHelperText,
@@ -19,15 +21,8 @@ export function ForgotPasswordScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false)
   const [submitNotice, setSubmitNotice] = useState('')
-  const submitTimerRef = useRef(null)
-
-  useEffect(() => {
-    return () => {
-      if (submitTimerRef.current !== null) {
-        window.clearTimeout(submitTimerRef.current)
-      }
-    }
-  }, [])
+  const [submitError, setSubmitError] = useState('')
+  const [submitErrorAction, setSubmitErrorAction] = useState('')
 
   const identifierError = hasAttemptedSubmit
     ? getRequiredFieldError(identifier, 'Enter your email or username to continue.')
@@ -36,9 +31,11 @@ export function ForgotPasswordScreen() {
 
   function clearTransientState() {
     setSubmitNotice('')
+    setSubmitError('')
+    setSubmitErrorAction('')
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
     setHasAttemptedSubmit(true)
 
@@ -49,14 +46,26 @@ export function ForgotPasswordScreen() {
     clearTransientState()
     setIsSubmitting(true)
 
-    // TODO: Replace the temporary frontend-only recovery response with the real forgot-password API once auth-flow wiring lands.
-    submitTimerRef.current = window.setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitNotice(
-        'If an account matches that information, recovery instructions will be sent once backend delivery is connected.',
-      )
-      submitTimerRef.current = null
-    }, 900)
+    const { data, error, errorAction } = await fetchApi(
+      API_ENDPOINTS.auth.forgotPassword,
+      {
+        method: 'POST',
+        body: JSON.stringify({ identifier: identifier.trim() }),
+      },
+    )
+
+    setIsSubmitting(false)
+
+    if (error) {
+      setSubmitError(error)
+      setSubmitErrorAction(errorAction)
+      return
+    }
+
+    setSubmitNotice(
+      data?.message ||
+        'If an account matches that information, recovery instructions have been prepared.',
+    )
   }
 
   return (
@@ -111,9 +120,21 @@ export function ForgotPasswordScreen() {
 
               <div className="forgot-password-screen__form-meta">
                 <AuthHelperText>
-                  Password recovery continues only after backend delivery is available.
+                  Recovery responses stay generic so account existence is not exposed.
                 </AuthHelperText>
               </div>
+
+              {submitError ? (
+                <AuthHelperText className="forgot-password-screen__status forgot-password-screen__status--error">
+                  {submitError}
+                </AuthHelperText>
+              ) : null}
+
+              {submitErrorAction ? (
+                <AuthHelperText className="forgot-password-screen__status forgot-password-screen__status--error">
+                  {submitErrorAction}
+                </AuthHelperText>
+              ) : null}
 
               {submitNotice ? (
                 <AuthHelperText className="forgot-password-screen__status forgot-password-screen__status--info">

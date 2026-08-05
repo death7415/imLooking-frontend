@@ -1,7 +1,9 @@
 import { motion } from 'motion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ROUTE_PATHS } from '../../../../app/router/route-paths.js'
+import { fetchApi } from '../../../../shared/api/api-client.js'
+import { API_ENDPOINTS } from '../../../../shared/config/api.js'
 import {
   AuthBrandDock,
   AuthHelperText,
@@ -44,21 +46,19 @@ export function LoginScreen() {
   const navigate = useNavigate()
   const [loginMethod, setLoginMethod] = useState('phone')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [phoneOtpCode, setPhoneOtpCode] = useState('')
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false)
-  const submitTimerRef = useRef(null)
-
-  useEffect(() => {
-    return () => {
-      if (submitTimerRef.current !== null) {
-        window.clearTimeout(submitTimerRef.current)
-      }
-    }
-  }, [])
+  const [hasAttemptedOtpSubmit, setHasAttemptedOtpSubmit] = useState(false)
+  const [authError, setAuthError] = useState('')
+  const [authErrorAction, setAuthErrorAction] = useState('')
+  const [phoneLoginState, setPhoneLoginState] = useState('idle')
+  const [phoneLoginNotice, setPhoneLoginNotice] = useState('')
 
   const normalizedPhoneNumber = normalizeMobileNumber(phoneNumber)
+  const trimmedPhoneOtpCode = phoneOtpCode.trim()
   const phoneNumberError = getPhoneNumberValidationError(normalizedPhoneNumber, {
     requiredMessage:
       hasAttemptedSubmit && loginMethod === 'phone'
@@ -80,13 +80,20 @@ export function LoginScreen() {
           invalidMessage: '',
         })
       : ''
+  const phoneOtpError =
+    loginMethod === 'phone' &&
+    phoneLoginState === 'otp-sent' &&
+    hasAttemptedOtpSubmit &&
+    !trimmedPhoneOtpCode
+      ? 'Enter the OTP sent to your phone number.'
+      : ''
   const alternateMethodOptions = getAlternateMethodOptions(loginMethod)
   const requestedPath =
     typeof location.state?.from === 'string' ? location.state.from : ''
   const routeNotice = location.state?.passwordReset
     ? 'Password reset is complete. Sign in with your new password to continue.'
     : location.state?.signupCompleted
-      ? 'Account details are staged. Sign in to enter the protected app shell.'
+      ? 'Account verification is complete. Sign in to enter the protected app shell.'
       : requestedPath
         ? 'Sign in to continue into the protected part of the app.'
         : ''
@@ -94,11 +101,84 @@ export function LoginScreen() {
   function handleMethodChange(nextMethod) {
     setLoginMethod(nextMethod)
     setHasAttemptedSubmit(false)
+    setHasAttemptedOtpSubmit(false)
+    setAuthError('')
+    setAuthErrorAction('')
+    setPhoneOtpCode('')
+    setPhoneLoginState('idle')
+    setPhoneLoginNotice('')
   }
 
-  function handleSubmit(event) {
+  function resetPhoneOtpState(nextPhoneNumber) {
+    setPhoneNumber(nextPhoneNumber)
+    setPhoneOtpCode('')
+    setPhoneLoginState('idle')
+    setPhoneLoginNotice('')
+    setHasAttemptedOtpSubmit(false)
+  }
+
+  async function startPhoneLoginOtp() {
+    const { data, error, errorAction } = await fetchApi(
+      API_ENDPOINTS.auth.loginOtpStart,
+      {
+        method: 'POST',
+        body: JSON.stringify({ phoneNumber: normalizedPhoneNumber }),
+      },
+    )
+
+    if (error) {
+      setAuthError(error)
+      setAuthErrorAction(errorAction)
+      setPhoneLoginState('idle')
+      return
+    }
+
+    setPhoneLoginState('otp-sent')
+    setPhoneLoginNotice(
+      data?.message ||
+        'If the account exists, login verification instructions have been prepared.',
+    )
+  }
+
+  async function completePhoneLoginOtp() {
+    setHasAttemptedOtpSubmit(true)
+    if (!trimmedPhoneOtpCode) {
+      return
+    }
+
+    setPhoneLoginState('verifying')
+
+    const { data, error, errorAction } = await fetchApi(
+      API_ENDPOINTS.auth.loginOtpComplete,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          phoneNumber: normalizedPhoneNumber,
+          verificationCode: trimmedPhoneOtpCode,
+        }),
+      },
+    )
+
+    if (error) {
+      setPhoneLoginState('otp-sent')
+      setAuthError(error)
+      setAuthErrorAction(errorAction)
+      return
+    }
+
+    setAuthSession({
+      isAuthenticated: true,
+      accessToken: data?.accessToken,
+      refreshToken: data?.refreshToken,
+    })
+    navigate(requestedPath || ROUTE_PATHS.HOME, { replace: true })
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
     setHasAttemptedSubmit(true)
+    setAuthError('')
+    setAuthErrorAction('')
 
     const phoneFlowBlocked =
       loginMethod === 'phone' && (!!phoneNumberError || !normalizedPhoneNumber)
@@ -112,17 +192,45 @@ export function LoginScreen() {
 
     setIsSubmitting(true)
 
-    submitTimerRef.current = window.setTimeout(() => {
+    if (loginMethod === 'phone') {
+      if (phoneLoginState === 'otp-sent') {
+        await completePhoneLoginOtp()
+      } else {
+        await startPhoneLoginOtp()
+      }
+
       setIsSubmitting(false)
-      submitTimerRef.current = null
-      setAuthSession({ isAuthenticated: true })
+    } else {
+      const { data, error, errorAction } = await fetchApi(API_ENDPOINTS.auth.login, {
+        method: 'POST',
+        body: JSON.stringify({ identifier, password }),
+      })
+
+      setIsSubmitting(false)
+
+      if (error) {
+        setAuthError(error)
+        setAuthErrorAction(errorAction)
+        return
+      }
+
+      setAuthSession({ 
+        isAuthenticated: true, 
+        accessToken: data?.accessToken, 
+        refreshToken: data?.refreshToken 
+      })
       navigate(requestedPath || ROUTE_PATHS.HOME, { replace: true })
-    }, 900)
+    }
   }
 
   const canSubmit =
     loginMethod === 'phone'
-      ? Boolean(normalizedPhoneNumber) && !phoneNumberError && !isSubmitting
+      ? phoneLoginState === 'otp-sent'
+        ? Boolean(normalizedPhoneNumber) &&
+          !phoneNumberError &&
+          Boolean(trimmedPhoneOtpCode) &&
+          !isSubmitting
+        : Boolean(normalizedPhoneNumber) && !phoneNumberError && !isSubmitting
       : Boolean(identifier.trim()) &&
         Boolean(password.trim()) &&
         !identifierError &&
@@ -159,6 +267,18 @@ export function LoginScreen() {
               </AuthHelperText>
             ) : null}
 
+            {authError ? (
+              <AuthHelperText className="login-experience__status login-experience__status--error" style={{ color: 'var(--text-error)' }}>
+                {authError}
+              </AuthHelperText>
+            ) : null}
+
+            {authErrorAction ? (
+              <AuthHelperText className="login-experience__status login-experience__status--error" style={{ color: 'var(--text-error)' }}>
+                {authErrorAction}
+              </AuthHelperText>
+            ) : null}
+
             <form className="login-experience__form" noValidate onSubmit={handleSubmit}>
               {loginMethod === 'phone' ? (
                 <>
@@ -176,16 +296,68 @@ export function LoginScreen() {
                     hint={
                       phoneNumberError
                         ? undefined
-                        : 'We will send a one-time password to this number.'
+                        : phoneLoginState === 'sending'
+                          ? 'Sending OTP now...'
+                          : phoneLoginState === 'otp-sent'
+                            ? 'OTP sent. Enter the latest code to continue.'
+                            : phoneLoginNotice
+                              ? phoneLoginNotice
+                              : 'We will send a one-time password to this number.'
                     }
-                    onChange={(event) =>
-                      setPhoneNumber(normalizeMobileNumber(event.target.value))
+                    action={
+                      phoneLoginState === 'otp-sent' ? (
+                        <button
+                          type="button"
+                          className="auth-form-field__action"
+                          disabled={isSubmitting || Boolean(phoneNumberError)}
+                          onClick={async () => {
+                            setAuthError('')
+                            setAuthErrorAction('')
+                            setIsSubmitting(true)
+                            setPhoneLoginState('sending')
+                            await startPhoneLoginOtp()
+                            setIsSubmitting(false)
+                          }}
+                        >
+                          {isSubmitting ? 'Sending...' : 'Resend OTP'}
+                        </button>
+                      ) : undefined
                     }
+                    onChange={(event) => {
+                      resetPhoneOtpState(normalizeMobileNumber(event.target.value))
+                      setAuthError('')
+                      setAuthErrorAction('')
+                    }}
                   />
+
+                  {phoneLoginState === 'otp-sent' ? (
+                    <AuthTextField
+                      id="login-phone-otp"
+                      type="text"
+                      name="phoneOtpCode"
+                      label="OTP"
+                      placeholder="Enter the OTP"
+                      inputMode="numeric"
+                      value={phoneOtpCode}
+                      disabled={isSubmitting}
+                      error={phoneOtpError}
+                      hint={
+                        phoneOtpError
+                          ? undefined
+                          : 'Use the latest OTP delivered by the backend.'
+                      }
+                      onChange={(event) => {
+                        setPhoneOtpCode(event.target.value)
+                        setAuthError('')
+                        setAuthErrorAction('')
+                      }}
+                    />
+                  ) : null}
 
                   <div className="login-experience__form-meta login-experience__form-meta--single">
                     <AuthHelperText>
-                      Password is skipped for this path. Entry continues through OTP.
+                      Password is skipped for this path. In trial-mode development,
+                      SMS may be rerouted to the verified fallback handset.
                     </AuthHelperText>
                   </div>
 
@@ -219,7 +391,11 @@ export function LoginScreen() {
                     value={identifier}
                     disabled={isSubmitting}
                     error={identifierError}
-                    onChange={(event) => setIdentifier(event.target.value)}
+                    onChange={(event) => {
+                      setIdentifier(event.target.value)
+                      setAuthError('')
+                      setAuthErrorAction('')
+                    }}
                   />
 
                   <AuthPasswordField
@@ -231,7 +407,11 @@ export function LoginScreen() {
                     value={password}
                     disabled={isSubmitting}
                     error={passwordError}
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={(event) => {
+                      setPassword(event.target.value)
+                      setAuthError('')
+                      setAuthErrorAction('')
+                    }}
                   />
 
                   <div className="login-experience__form-meta">
@@ -246,10 +426,14 @@ export function LoginScreen() {
               <AuthSubmitButton disabled={!canSubmit}>
                 {isSubmitting
                   ? loginMethod === 'phone'
-                    ? 'Sending OTP...'
+                    ? phoneLoginState === 'otp-sent'
+                      ? 'Verifying OTP...'
+                      : 'Sending OTP...'
                     : 'Signing in...'
                   : loginMethod === 'phone'
-                    ? 'Continue with OTP'
+                    ? phoneLoginState === 'otp-sent'
+                      ? 'Verify OTP'
+                      : 'Send OTP'
                     : 'Continue'}
               </AuthSubmitButton>
             </form>

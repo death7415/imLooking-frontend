@@ -1,5 +1,11 @@
 const AUTH_SESSION_STORAGE_KEY = 'imlooking.auth.session'
 
+// TODO: (Security) Currently storing tokens in localStorage/sessionStorage.
+// For utmost security against XSS (Cross-Site Scripting) and token theft, 
+// the backend should be updated to issue HttpOnly, Secure, SameSite=Strict cookies 
+// for the accessToken and refreshToken. Once the backend supports HttpOnly cookies,
+// the frontend should remove token storage logic here and rely entirely on browser cookies.
+
 function readStorageValue(storage) {
   try {
     return storage?.getItem(AUTH_SESSION_STORAGE_KEY) ?? null
@@ -21,7 +27,7 @@ function removeStorageValue(storage) {
   try {
     storage?.removeItem(AUTH_SESSION_STORAGE_KEY)
   } catch {
-    // Ignore storage cleanup failures in the frontend placeholder flow.
+    // Ignore storage cleanup failures
   }
 }
 
@@ -31,7 +37,7 @@ export function getAuthSession() {
     readStorageValue(window.sessionStorage)
 
   if (!rawValue) {
-    return { isAuthenticated: false }
+    return { isAuthenticated: false, accessToken: null, refreshToken: null }
   }
 
   try {
@@ -39,9 +45,11 @@ export function getAuthSession() {
 
     return {
       isAuthenticated: parsedValue?.isAuthenticated === true,
+      accessToken: parsedValue?.accessToken || null,
+      refreshToken: parsedValue?.refreshToken || null,
     }
   } catch {
-    return { isAuthenticated: false }
+    return { isAuthenticated: false, accessToken: null, refreshToken: null }
   }
 }
 
@@ -49,12 +57,24 @@ export function isAuthenticated() {
   return getAuthSession().isAuthenticated
 }
 
-export function setAuthSession(session) {
+export function getAccessToken() {
+  return getAuthSession().accessToken
+}
+
+export function setAuthSession(session, persist = true) {
   const nextSession = {
     isAuthenticated: session?.isAuthenticated === true,
+    accessToken: session?.accessToken || null,
+    refreshToken: session?.refreshToken || null,
   }
 
-  if (!writeStorageValue(window.localStorage, nextSession)) {
+  // Clear old storage first to avoid conflicts
+  removeStorageValue(window.localStorage)
+  removeStorageValue(window.sessionStorage)
+
+  if (persist) {
+    writeStorageValue(window.localStorage, nextSession)
+  } else {
     writeStorageValue(window.sessionStorage, nextSession)
   }
 
