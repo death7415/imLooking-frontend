@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   background: rgba(8, 5, 12, 0.48);
-  backdrop-filter: blur(4px);
+
 }
 
 .ui-sheet {

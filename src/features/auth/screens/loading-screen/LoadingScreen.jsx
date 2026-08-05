@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthBrandMark, AuthStageCard, AuthStageShell } from '../../components/index.js'
+import { AuthBrandMark, AuthStageShell } from '../../components/index.js'
 import './LoadingScreen.css'
 
 export function LoadingScreen({ nextPath = '/login' }) {
@@ -29,9 +29,7 @@ export function LoadingScreen({ nextPath = '/login' }) {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <AuthStageCard variant="hero" className="loading-experience__card">
-            <AuthBrandMark size="hero" />
-          </AuthStageCard>
+          <AuthBrandMark size="hero" />
         </motion.div>
 
         <motion.p

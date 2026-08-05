@@ -8,7 +8,6 @@
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-xl);
   background: var(--bg-panel);
-  backdrop-filter: blur(8px);
   box-shadow: var(--shadow-elevated);
 }
 

@@ -10,7 +10,6 @@
   border-radius: var(--radius-xl);
   background: var(--bg-panel);
   box-shadow: var(--shadow-elevated);
-  backdrop-filter: blur(12px);
 }
 
 .foundation-panel::before,

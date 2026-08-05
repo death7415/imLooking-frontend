@@ -33,42 +33,25 @@ const RESERVED_USERNAMES = new Set([
   'support',
 ])
 
-function formatDobInput(value) {
-  const digits = value.replace(/\D/g, '').slice(0, 8)
 
-  if (digits.length <= 2) {
-    return digits
-  }
-
-  if (digits.length <= 4) {
-    return `${digits.slice(0, 2)}/${digits.slice(2)}`
-  }
-
-  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`
-}
 
 function parseDateOfBirth(value) {
-  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
-    return null
-  }
+  if (!value) return null
 
-  const [dayPart, monthPart, yearPart] = value.split('/')
-  const day = Number(dayPart)
-  const month = Number(monthPart)
-  const year = Number(yearPart)
+  const parts = value.split('-')
+  if (parts.length !== 3) return null
 
-  if (year < 1900) {
+  const year = Number(parts[0])
+  const month = Number(parts[1])
+  const day = Number(parts[2])
+
+  if (year < 1900 || year > new Date().getFullYear()) {
     return null
   }
 
   const candidate = new Date(year, month - 1, day)
 
-  if (
-    Number.isNaN(candidate.getTime()) ||
-    candidate.getFullYear() !== year ||
-    candidate.getMonth() !== month - 1 ||
-    candidate.getDate() !== day
-  ) {
+  if (Number.isNaN(candidate.getTime())) {
     return null
   }
 
@@ -532,17 +515,14 @@ export function SignupScreen() {
               <div className="signup-experience__form-grid signup-experience__form-grid--split">
                 <AuthTextField
                   id="signup-date-of-birth"
-                  type="text"
+                  type="date"
                   name="dateOfBirth"
                   label="Date of birth"
-                  placeholder="dd/mm/yyyy"
-                  inputMode="numeric"
-                  autoComplete="bday"
                   value={dateOfBirth}
                   disabled={isSubmitting}
                   error={dateOfBirthError}
                   hint={dateOfBirthError ? undefined : dateOfBirthHint}
-                  onChange={(event) => setDateOfBirth(formatDobInput(event.target.value))}
+                  onChange={(event) => setDateOfBirth(event.target.value)}
                 />
 
                 <AuthTextField
