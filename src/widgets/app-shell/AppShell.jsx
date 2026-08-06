@@ -9,7 +9,8 @@ import './AppShell.css'
 
 const navItems = [
   { to: ROUTE_PATHS.HOME, label: 'Home' },
-  { to: ROUTE_PATHS.ONBOARDING, label: 'Onboarding' },
+  { to: ROUTE_PATHS.PROFILE, label: 'Profile' },
+  { to: ROUTE_PATHS.VERIFY_EMAIL, label: 'Verify Email' },
   { to: ROUTE_PATHS.CHAT, label: 'Chat' },
 ]
 

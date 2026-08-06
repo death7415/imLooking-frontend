@@ -18,11 +18,13 @@ import {
 import {
   MINIMUM_SIGNUP_AGE,
   USERNAME_PATTERN,
+  getPostAuthPath,
   getConfirmPasswordValidationError,
   getEmailValidationError,
   getPasswordValidationError,
   getPhoneNumberValidationError,
   normalizeMobileNumber,
+  setAuthSession,
 } from '../../model/index.js'
 import './SignupScreen.css'
 
@@ -114,9 +116,7 @@ export function SignupScreen() {
   const [signupErrorAction, setSignupErrorAction] = useState('')
   const [signupPrepared, setSignupPrepared] = useState(false)
   const [pendingPhoneNumber, setPendingPhoneNumber] = useState('')
-  const [emailVerificationState, setEmailVerificationState] = useState('idle')
   const [mobileVerificationState, setMobileVerificationState] = useState('idle')
-  const [emailVerificationNotice, setEmailVerificationNotice] = useState('')
   const [mobileVerificationNotice, setMobileVerificationNotice] = useState('')
   const [phoneOtpCode, setPhoneOtpCode] = useState('')
   const [usernameAvailability, setUsernameAvailability] = useState(
@@ -163,14 +163,6 @@ export function SignupScreen() {
     setMobileVerificationNotice('')
     setPhoneOtpCode('')
     setHasAttemptedPhoneVerification(false)
-  }
-
-  function resetEmailVerification(nextEmail) {
-    clearGlobalError()
-    resetPreparedSignupState()
-    setEmail(nextEmail)
-    setEmailVerificationState('idle')
-    setEmailVerificationNotice('')
   }
 
   function resetMobileVerification(nextMobileNumber) {
@@ -347,13 +339,6 @@ export function SignupScreen() {
     (hasAttemptedSubmit || activeField !== 'email')
       ? emailAvailability.message
       : ''
-  const emailVerificationError =
-    !emailValidationError &&
-    !emailAvailabilityError &&
-    hasAttemptedSubmit &&
-    emailVerificationState !== 'verified'
-      ? 'Verify your email before continuing.'
-      : ''
 
   const phoneNumberError =
     normalizedMobileNumber || hasAttemptedSubmit
@@ -418,23 +403,15 @@ export function SignupScreen() {
       : ''
 
   const emailHint =
-    emailValidationError || emailAvailabilityError || emailVerificationError
+    emailValidationError || emailAvailabilityError
       ? undefined
-      : emailVerificationState === 'sending'
-        ? 'Sending verification link...'
-        : emailVerificationState === 'checking'
-          ? 'Checking verification status...'
-          : emailVerificationState === 'verified'
-            ? 'Email verified.'
-            : emailVerificationNotice
-              ? emailVerificationNotice
-              : emailAvailability.state === 'checking'
-                ? 'Checking email availability...'
-                : emailAvailability.state === 'taken' && activeField === 'email'
-                  ? emailAvailability.message
-                  : emailAvailability.state === 'available'
-                    ? 'Email available. Verify it before continuing.'
-                    : 'A verified email is required on this form.'
+      : emailAvailability.state === 'checking'
+        ? 'Checking email availability...'
+        : emailAvailability.state === 'taken' && activeField === 'email'
+          ? emailAvailability.message
+          : emailAvailability.state === 'available'
+            ? 'Email available. Verification email will be sent after account creation.'
+            : 'Use an email you can verify after signup.'
 
   const mobileHint =
     phoneNumberError || phoneAvailabilityError
@@ -479,7 +456,6 @@ export function SignupScreen() {
     Boolean(trimmedEmail) &&
     !emailValidationError &&
     emailAvailability.state === 'available' &&
-    emailVerificationState === 'verified' &&
     Boolean(normalizedMobileNumber) &&
     !phoneNumberError &&
     phoneAvailability.state === 'available' &&
@@ -495,66 +471,6 @@ export function SignupScreen() {
     acceptedTerms &&
     acceptedCommunityRules &&
     !isSubmitting
-
-  async function handleSendEmailVerificationLink() {
-    if (!trimmedEmail || emailValidationError || emailAvailability.state !== 'available') {
-      return
-    }
-
-    clearGlobalError()
-    setEmailVerificationState('sending')
-
-    const { data, error, errorAction } = await fetchApi(
-      API_ENDPOINTS.auth.emailVerificationStart,
-      {
-        method: 'POST',
-        body: JSON.stringify({ email: trimmedEmail }),
-      },
-    )
-
-    if (error) {
-      setEmailVerificationState('idle')
-      applyApiError(error, errorAction)
-      return
-    }
-
-    setEmailVerificationState('sent')
-    setEmailVerificationNotice(
-      data?.message ||
-        'Verification link sent. Open your inbox, click the link, then check status here.',
-    )
-  }
-
-  async function handleCheckEmailVerification() {
-    if (!trimmedEmail || emailValidationError) {
-      return
-    }
-
-    clearGlobalError()
-    setEmailVerificationState('checking')
-
-    const { data, error, errorAction } = await fetchApi(
-      `${API_ENDPOINTS.auth.emailVerificationStatus}?email=${encodeURIComponent(trimmedEmail)}`,
-      { method: 'GET' },
-    )
-
-    if (error) {
-      setEmailVerificationState('sent')
-      applyApiError(error, errorAction)
-      return
-    }
-
-    if (data?.verified) {
-      setEmailVerificationState('verified')
-      setEmailVerificationNotice('Email verification confirmed.')
-      return
-    }
-
-    setEmailVerificationState('sent')
-    setEmailVerificationNotice(
-      'Email is not verified yet. Open the latest verification email and try again.',
-    )
-  }
 
   async function handleResendMobileOtp() {
     const verificationIdentifier = pendingPhoneNumber || normalizedMobileNumber
@@ -612,14 +528,18 @@ export function SignupScreen() {
       return
     }
 
+    const nextSession = setAuthSession({
+      isAuthenticated: data?.authenticated === true,
+      accessToken: data?.accessToken,
+      refreshToken: data?.refreshToken,
+      email: data?.email,
+      emailVerified: data?.emailVerified === true,
+      phoneVerified: data?.phoneVerified === true,
+      profileCompleted: data?.profileCompleted === true,
+    })
     setMobileVerificationState('verified')
     setMobileVerificationNotice(data?.message || 'Mobile verification completed.')
-    navigate(ROUTE_PATHS.LOGIN, {
-      replace: true,
-      state: {
-        signupCompleted: true,
-      },
-    })
+    navigate(getPostAuthPath(nextSession), { replace: true })
   }
 
   async function handleSubmit(event) {
@@ -684,8 +604,8 @@ export function SignupScreen() {
             <header className="signup-experience__card-header">
               <h1 className="signup-experience__card-title">Create account</h1>
               <p className="signup-experience__card-copy">
-                Verify your email, reserve a unique username, then stage the
-                account and finish mobile OTP verification.
+                Create your account now, verify your phone on this page, and
+                verify your email after entry.
               </p>
             </header>
 
@@ -741,41 +661,15 @@ export function SignupScreen() {
                 inputMode="email"
                 value={email}
                 disabled={isSubmitting}
-                error={emailValidationError || emailAvailabilityError || emailVerificationError}
+                error={emailValidationError || emailAvailabilityError}
                 hint={emailHint}
-                action={
-                  <button
-                    type="button"
-                    className="auth-form-field__action"
-                    disabled={
-                      isSubmitting ||
-                      Boolean(emailValidationError) ||
-                      emailAvailability.state !== 'available' ||
-                      !trimmedEmail ||
-                      emailVerificationState === 'sending' ||
-                      emailVerificationState === 'checking' ||
-                      emailVerificationState === 'verified'
-                    }
-                    onClick={
-                      emailVerificationState === 'sent'
-                        ? handleCheckEmailVerification
-                        : handleSendEmailVerificationLink
-                    }
-                  >
-                    {emailVerificationState === 'sending'
-                      ? 'Sending...'
-                      : emailVerificationState === 'checking'
-                        ? 'Checking...'
-                        : emailVerificationState === 'verified'
-                          ? 'Verified'
-                          : emailVerificationState === 'sent'
-                            ? 'Check status'
-                            : 'Send link'}
-                  </button>
-                }
                 onFocus={() => setActiveField('email')}
                 onBlur={() => setActiveField('')}
-                onChange={(event) => resetEmailVerification(event.target.value)}
+                onChange={(event) => {
+                  clearGlobalError()
+                  resetPreparedSignupState()
+                  setEmail(event.target.value)
+                }}
               />
 
               <AuthTextField
@@ -981,8 +875,8 @@ export function SignupScreen() {
 
               <div className="signup-experience__form-meta">
                 <AuthHelperText>
-                  Verify your email first. After signup is staged, finish the mobile OTP
-                  step to unlock login.
+                  We will send the verification email after account creation. Finish the
+                  mobile OTP step here to sign in directly.
                 </AuthHelperText>
               </div>
 

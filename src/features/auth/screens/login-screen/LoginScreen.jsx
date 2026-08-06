@@ -16,6 +16,7 @@ import {
   AuthTextField,
 } from '../../components/index.js'
 import {
+  getPostAuthPath,
   getPasswordValidationError,
   getPhoneNumberValidationError,
   getRequiredFieldError,
@@ -92,9 +93,7 @@ export function LoginScreen() {
     typeof location.state?.from === 'string' ? location.state.from : ''
   const routeNotice = location.state?.passwordReset
     ? 'Password reset is complete. Sign in with your new password to continue.'
-    : location.state?.signupCompleted
-      ? 'Account verification is complete. Sign in to enter the protected app shell.'
-      : requestedPath
+    : requestedPath
         ? 'Sign in to continue into the protected part of the app.'
         : ''
 
@@ -166,12 +165,16 @@ export function LoginScreen() {
       return
     }
 
-    setAuthSession({
+    const nextSession = setAuthSession({
       isAuthenticated: true,
       accessToken: data?.accessToken,
       refreshToken: data?.refreshToken,
+      email: data?.email,
+      emailVerified: data?.emailVerified === true,
+      phoneVerified: data?.phoneVerified === true,
+      profileCompleted: data?.profileCompleted === true,
     })
-    navigate(requestedPath || ROUTE_PATHS.HOME, { replace: true })
+    navigate(requestedPath || getPostAuthPath(nextSession), { replace: true })
   }
 
   const handleSubmit = async (event) => {
@@ -214,12 +217,16 @@ export function LoginScreen() {
         return
       }
 
-      setAuthSession({ 
-        isAuthenticated: true, 
-        accessToken: data?.accessToken, 
-        refreshToken: data?.refreshToken 
+      const nextSession = setAuthSession({
+        isAuthenticated: true,
+        accessToken: data?.accessToken,
+        refreshToken: data?.refreshToken,
+        email: data?.email,
+        emailVerified: data?.emailVerified === true,
+        phoneVerified: data?.phoneVerified === true,
+        profileCompleted: data?.profileCompleted === true,
       })
-      navigate(requestedPath || ROUTE_PATHS.HOME, { replace: true })
+      navigate(requestedPath || getPostAuthPath(nextSession), { replace: true })
     }
   }
 

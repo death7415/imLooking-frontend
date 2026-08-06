@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Navigate, createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ROUTE_PATHS } from './route-paths.js'
 import { AuthRouteBoundary } from '../../widgets/auth-route-boundary/AuthRouteBoundary.jsx'
 import { AppShell } from '../../widgets/app-shell/AppShell.jsx'
@@ -11,11 +11,12 @@ import { ForgotPasswordPage } from '../../pages/forgot-password/ForgotPasswordPa
 import { HomePage } from '../../pages/home/HomePage.jsx'
 import { LoadingPage } from '../../pages/loading/LoadingPage.jsx'
 import { LoginPage } from '../../pages/login/LoginPage.jsx'
-import { OnboardingPage } from '../../pages/onboarding/OnboardingPage.jsx'
+import { ProfilePage } from '../../pages/profile/ProfilePage.jsx'
 import { PrivacyPage } from '../../pages/privacy/PrivacyPage.jsx'
 import { ResetPasswordPage } from '../../pages/reset-password/ResetPasswordPage.jsx'
 import { SignupPage } from '../../pages/signup/SignupPage.jsx'
 import { TermsPage } from '../../pages/terms/TermsPage.jsx'
+import { VerifyEmailPage } from '../../pages/verify-email/VerifyEmailPage.jsx'
 import { ProtectedAppRoute } from '../../widgets/protected-app-route/ProtectedAppRoute.jsx'
 
 const router = createBrowserRouter([
@@ -53,7 +54,12 @@ const router = createBrowserRouter([
         children: [
           { path: ROUTE_PATHS.HOME, element: <HomePage /> },
           { path: ROUTE_PATHS.CHAT, element: <ChatPage /> },
-          { path: ROUTE_PATHS.ONBOARDING, element: <OnboardingPage /> },
+          { path: ROUTE_PATHS.PROFILE, element: <ProfilePage /> },
+          { path: ROUTE_PATHS.VERIFY_EMAIL, element: <VerifyEmailPage /> },
+          {
+            path: '/onboarding',
+            element: <Navigate replace to={ROUTE_PATHS.PROFILE} />,
+          },
         ],
       },
     ],

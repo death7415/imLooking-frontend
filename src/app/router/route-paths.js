@@ -1,7 +1,8 @@
 export const ROUTE_PATHS = {
   HOME: '/home',
   CHAT: '/chat',
-  ONBOARDING: '/onboarding',
+  PROFILE: '/profile',
+  VERIFY_EMAIL: '/verify-email',
   LOGIN: '/login',
   SIGNUP: '/signup',
   FORGOT_PASSWORD: '/forgot-password',

@@ -147,7 +147,7 @@ export function ConsentScreen() {
               <div className="consent-screen__meta">
                 <AuthHelperText>
                   This checkpoint is intentionally explicit so policy review is visible
-                  before signup and later onboarding continue.
+                  before signup and later profile completion continue.
                 </AuthHelperText>
               </div>
 
@@ -169,3 +169,4 @@ export function ConsentScreen() {
     </AuthStageShell>
   )
 }
+

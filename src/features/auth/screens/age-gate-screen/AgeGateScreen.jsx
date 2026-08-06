@@ -40,7 +40,7 @@ export function AgeGateScreen() {
               <h1 className="age-gate-screen__card-title">Age gate</h1>
               <p className="age-gate-screen__card-copy">
                 Confirm that you are old enough to continue into the private part of
-                onboarding before consent and activation move forward.
+                profile completion before consent and activation move forward.
               </p>
             </header>
 
@@ -118,3 +118,4 @@ export function AgeGateScreen() {
     </AuthStageShell>
   )
 }
+
